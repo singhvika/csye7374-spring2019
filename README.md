@@ -1,11 +1,4 @@
-# CSYE 7374 - Spring 2019
 
-## Team Information
+csye7374-spring2019
 
-| Name | NEU ID | Email Address |
-| --- | --- | --- |
-| | | |
-| | | |
-| | | |
-| | | |
-
+CSYE 7374 Advanced Cloud - for kubernetes and docker

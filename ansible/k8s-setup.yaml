@@ -1,0 +1,6 @@
+---
+  - name: install sample file
+    hosts: localhost
+    roles:
+      - kops/common
+...

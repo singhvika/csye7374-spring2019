@@ -1,6 +1,4 @@
 ---
-cluster_name: dcunham.k8s.csye6225-fall2018-dcunham.me
-state_store: s3://dcunham.k8s.csye6225-fall2018-dcunham.me
 
 ## Regions / Availability zones
 region: us-east-1
@@ -12,5 +10,9 @@ master_size: t2.micro
 
 ## Node configuration
 node_size: t2.micro
-node_count: 1
+
+nodeCount: "{{ nc }}"
+nodeSize: "{{ ns }}"
+masterSize: "{{ ms }}"
+
 ...

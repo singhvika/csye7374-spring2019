@@ -1,6 +1,0 @@
----
-- name: copy sample file
-  copy:
-    content: "{{playbook_dir}}"
-    dest: "{{playbook_dir}}_{{clusterName}}_test.html"
-...

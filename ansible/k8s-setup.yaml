@@ -1,6 +1,6 @@
 ---
-  - name: install sample file
+  - name: Create a Kubernetes Cluster
     hosts: localhost
     roles:
-      - kops/common
+      - kops/setup
 ...

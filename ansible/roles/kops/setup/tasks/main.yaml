@@ -1,0 +1,19 @@
+- name: kops create cluster 
+  shell: "kops create cluster --node-size {{ node_size }} --master-size {{ master_size }} --kubernetes-version=1.13.0 --zones=us-east-1b --master-zones=us-east-1b --node-count=1 {{ cluster_name }}"
+
+- name: Update the cluster 
+  shell: "kops update cluster --name {{ cluster_name }} --yes"
+
+- name: Verify that all Kubernetes nodes are ready
+  shell: "kops validate cluster --name {{ cluster_name }} --yes"
+  register: cmd_result
+  until: cmd_result.stdout.find(' is ready') != -1
+  retries: 20
+  delay: 60
+
+...
+
+
+
+
+  

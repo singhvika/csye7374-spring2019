@@ -7,10 +7,11 @@
     shell: "kops update cluster {{clusterName}} --state {{stateStore}} --yes"
 
   - name: validate cluster
-    shell:  "kops validate cluster --name {{clusterName}} --state {{stateStore}} --yes"
+    shell:  "kops validate cluster --name {{clusterName}} --state {{stateStore}}"
     register: clusterStatus
-    until:  clusterStatus.stdout.find('Your cluster ' + clusterName + ' is ready')  !=  -1
+    until:  clusterStatus.stdout.find('Your cluster '+ clusterName +' is ready')  !=  -1
     retries:  20
-    delay:  60 
+    delay:  30 
+    
 ...
 

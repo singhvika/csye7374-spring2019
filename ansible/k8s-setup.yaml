@@ -3,4 +3,5 @@
     hosts: localhost
     roles:
       - kops/common
+      - kops/setup
 ...

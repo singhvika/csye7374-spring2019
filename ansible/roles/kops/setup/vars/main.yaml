@@ -1,0 +1,5 @@
+---
+nodeCount: "{{ nc }}"
+nodeSize: "{{ ns }}"
+masterSize: "{{ ms }}"
+...

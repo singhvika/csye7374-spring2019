@@ -1,0 +1,4 @@
+---
+clusterName: "{{ cn }}"
+stateStore: "s3://{{ ss }}"
+...

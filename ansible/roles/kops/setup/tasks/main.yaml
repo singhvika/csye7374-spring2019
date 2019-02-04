@@ -1,14 +1,16 @@
 ---
+#roles/setup/tasks
+
   - name: setup cluster
-    shell: "kops create cluster --node-size {{nodeSize}} --master-size {{masterSize}} --kubernetes-version=1.13.0 --zones=us-east-1b,us-east-1c,us-east-1d --master-zones=us-east-1b,us-east-1c,us-east-1d --node-count {{nodeCount}} --name {{clusterName}} --state {{stateStore}}"
+    shell: "kops create cluster --node-size {{nodeSize}} --master-size {{masterSize}} --kubernetes-version 1.13.0 --zones us-east-1b,us-east-1c,us-east-1d --master-zones us-east-1b,us-east-1c,us-east-1d --node-count {{nodeCount}} --name {{clusterName}} --state {{state}}"
 
   - name: update and build cluster
-    shell: "kops update cluster {{clusterName}} --yes"
+    shell: "kops update cluster {{clusterName}} --state {{state}} --yes"
 
   - name: validate cluster
-    shell:  "kops validate cluster --name {{clusterName}} --state {{stateStore}}"
+    shell:  "kops validate cluster --name {{clusterName}} --state {{state}}"
     register: clusterStatus
-    until:  clusterStatus.stdout.find('Your cluster ' + {{clusterName}} + ' is ready')  !=  -1
-    retries:  10;
-    delay:  120;  
-...
+    until:  clusterStatus.stdout.find('Your cluster '+ clusterName +' is ready')  !=  -1
+    retries:  20
+    delay:  60 
+   

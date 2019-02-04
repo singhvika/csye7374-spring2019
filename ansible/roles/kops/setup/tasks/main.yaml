@@ -1,3 +1,4 @@
+
 ---
   - name: setup cluster
     shell: "kops create cluster --node-size {{nodeSize}} --master-size {{masterSize}} --kubernetes-version=1.13.0 --zones=us-east-1b,us-east-1c,us-east-1d --master-zones=us-east-1b,us-east-1c,us-east-1d --node-count {{nodeCount}} --name {{clusterName}} --state {{stateStore}}"
@@ -8,7 +9,7 @@
   - name: validate cluster
     shell:  "kops validate cluster --name {{clusterName}} --state {{stateStore}}"
     register: clusterStatus
-    until:  "'is ready' in {{clusterStatus.stdout}}"
+    until:  clusterStatus.stdout.find('Your cluster '+ clusterName +' is ready')  !=  -1
     retries:  20
-    delay:  60 
-...
+    delay:  30 
+   

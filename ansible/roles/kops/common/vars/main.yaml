@@ -1,0 +1,6 @@
+---
+#roles/common/vars
+
+clusterName: "{{ clusterName }}"
+state: "s3://{{ stateStore }}"
+...

@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<start-class>com.cloud.LoginApplicatio n</start-class>
+		<start-class>com.cloud.LoginApplication</start-class>
 		<maven.test.skip>true</maven.test.skip>
 	</properties>
 	

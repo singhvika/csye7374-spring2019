@@ -1,7 +1,5 @@
 package com.cloud;
 
-import java.util.Date;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,11 +24,11 @@ public class LoginApplication{
 	}
 	
 
-	@RequestMapping(value={"/"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value={"/healthcheck"}, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public String time(){
+    public String healthCheck(){
     	
-    	return new Date().toString();
+    	return "Success";
     }
 
     

@@ -1,0 +1,11 @@
+#roles/build_image/tasks
+---   
+  - name: publish image 1
+    shell:  "sudo docker tag {{ applicationName }}:latest {{ accountId }}.dkr.ecr.us-east-1.amazonaws.com/{{ ecr }}:{{ tag }}"
+  
+  - name: publish image 2
+    shell:  "sudo $(aws ecr get-login --no-include-email --region us-east-1)"
+
+  - name: publish image 3
+    shell:  "sudo docker push {{ accountId }}.dkr.ecr.us-east-1.amazonaws.com/{{ ecr }}:{{ tag }}"
+...

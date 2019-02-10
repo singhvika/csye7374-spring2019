@@ -7,10 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +26,10 @@ public class UserController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    //@Autowired
     private UserService userService;
     
-    @Autowired
+    //@Autowired
     private StatsDClient statsDClient;
 
     /**
@@ -49,48 +45,48 @@ public class UserController {
     	return new Date().toString();
     }
 
-    /**
-     * Added the to register the users and also check is the user is already present
-     * @return String
-     */
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    @ResponseBody
-    public String createNewUser(@RequestBody User user, BindingResult bindingResult) {
+//    /**
+//     * Added the to register the users and also check is the user is already present
+//     * @return String
+//     */
+//    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String createNewUser(@RequestBody User user, BindingResult bindingResult) {
+//
+//   	    statsDClient.incrementCounter("endpoint.user.register.http.post");
+//        logger.info("Create New User - Start");
+//
+//        User userExists = userService.findUserByEmail(user.getEmail());
+//        if (userExists != null) {
+//            return CommonConstants.USER_ALREADY_EXISTS;
+//        }
+//
+//        userService.saveUser(user);
+//
+//        logger.info("Create New User - End");
+//
+//        return CommonConstants.USER_REGISTERATION_SUCCESS;
+//    }
 
-   	    statsDClient.incrementCounter("endpoint.user.register.http.post");
-        logger.info("Create New User - Start");
-
-        User userExists = userService.findUserByEmail(user.getEmail());
-        if (userExists != null) {
-            return CommonConstants.USER_ALREADY_EXISTS;
-        }
-
-        userService.saveUser(user);
-
-        logger.info("Create New User - End");
-
-        return CommonConstants.USER_REGISTERATION_SUCCESS;
-    }
-
-    /**
-     * Logout the user from Spring context
-     * @param request
-     * @param response
-     * @return
-     */
-  @RequestMapping(value="/logout", method = RequestMethod.GET)
-	public void logout (HttpServletRequest request, HttpServletResponse response) {
-    	
-	  statsDClient.incrementCounter("endpoint.logout.http.get");
-    logger.info("Logout - Start");
-    	
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null){    
-			new SecurityContextLogoutHandler().logout(request, response, auth);
-		}
-		
-		logger.info("Logout - End");
-	}
+//    /**
+//     * Logout the user from Spring context
+//     * @param request
+//     * @param response
+//     * @return
+//     */
+//  @RequestMapping(value="/logout", method = RequestMethod.GET)
+//	public void logout (HttpServletRequest request, HttpServletResponse response) {
+//
+//	  statsDClient.incrementCounter("endpoint.logout.http.get");
+//    logger.info("Logout - Start");
+//
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		if (auth != null){
+//			new SecurityContextLogoutHandler().logout(request, response, auth);
+//		}
+//
+//		logger.info("Logout - End");
+//	}
     
     
 

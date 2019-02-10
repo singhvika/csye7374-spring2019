@@ -1,0 +1,5 @@
+#roles/build_image/tasks
+---
+  - name: build image
+    shell:  "sudo docker build -t {{ applicationName }} {{ playbook_dir}}/../webapp/spring-login-master/."
+...

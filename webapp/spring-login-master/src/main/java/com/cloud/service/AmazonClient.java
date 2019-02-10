@@ -28,14 +28,14 @@ public class AmazonClient implements BaseClient{
 
     private static final String UNDERSCORE = "_";
 
-	@Value("${amazonProperties.endpointUrl}")
+	//@Value("${amazonProperties.endpointUrl}")
 	private String endpointUrl;
-	@Value("${spring.bucket.name}")
+	//@Value("${spring.bucket.name}")
 	private String bucketName;
 	//@Value("${amazonProperties.bucketName}")
 	//private String bucketName;
 
-	@PostConstruct
+	//@PostConstruct
 	private void initializeAmazon() {
 		this.s3client = AmazonS3ClientBuilder.standard()
 						.withCredentials(new DefaultAWSCredentialsProviderChain())

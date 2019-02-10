@@ -8,12 +8,12 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.authority.AuthorityUtils;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.services.sns.AmazonSNSAsync;
@@ -25,12 +25,12 @@ import com.cloud.model.User;
 import com.cloud.repository.UserRepository;
 
 @Service("userService")
-public class UserService implements UserDetailsService{
+public class UserService{
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
    // private UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    //private BCryptPasswordEncoder bCryptPasswordEncoder;
     private AmazonSNSAsync amazonSNSClient;
 
     //@Autowired
@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService{
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }*/
     
-    @PostConstruct
+    //@PostConstruct
 	public void initializeSNSClient() {
 
 		this.amazonSNSClient = AmazonSNSAsyncClientBuilder.defaultClient();
@@ -56,26 +56,26 @@ public class UserService implements UserDetailsService{
     	return null;
     }
     
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        User user = null;//userRepository.findByEmail(email);
-        if (user == null){
-            throw new UsernameNotFoundException(email + " was not found");
-        }
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                AuthorityUtils.createAuthorityList(user.getRoles())
-        );
-    }
-
-    public User saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
-        //return userRepository.save(user);
-        return null;
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//
+//        User user = null;//userRepository.findByEmail(email);
+//        if (user == null){
+//            throw new UsernameNotFoundException(email + " was not found");
+//        }
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getEmail(),
+//                user.getPassword(),
+//                AuthorityUtils.createAuthorityList(user.getRoles())
+//        );
+//    }
+//
+//    public User saveUser(User user) {
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        user.setActive(1);
+//        //return userRepository.save(user);
+//        return null;
+//    }
     
     
     public void sendMessage(String emailId) throws ExecutionException, InterruptedException {

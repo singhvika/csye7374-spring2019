@@ -1,7 +1,7 @@
 ---
 #roles/deploy_pod/tasks
 
-  - name: Form ECR URI - add ecr name
+  - name: Adding container registery name to ECR URI
     replace:
       path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
       regexp: '.*'
@@ -10,7 +10,7 @@
       before: '.dkr.ecr.us-east-1.amazonaws.com/'
       backup: no
   
-  - name: Form ECR URI - add account id
+  - name: Adding account id to ECR URI
     replace:
       path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
       regexp: '.*'
@@ -19,7 +19,7 @@
       before: '- image: '
       backup: no
 
-  - name: Form ECR URI - add image tag
+  - name: Adding image tag to ECR URI
     replace:
       path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
       regexp: '.*'

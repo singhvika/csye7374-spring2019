@@ -4,4 +4,5 @@
     roles:
       - kops/common
       - kops/setup
+      - kops/dashboard
 ...

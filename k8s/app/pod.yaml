@@ -1,0 +1,14 @@
+---
+apiVersion: v1               
+kind: Pod                    
+metadata:
+  name: cloudapp2-pod
+  labels:                                                 
+    app: cloudapp2
+spec:
+  containers:
+  - image: 727992775278.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest2
+    name: cloudapp22-container
+    ports:
+    - containerPort: 8080    
+      protocol: TCP

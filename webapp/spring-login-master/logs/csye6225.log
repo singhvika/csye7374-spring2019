@@ -1,0 +1,249 @@
+2019-02-09 18:53:28.843  INFO 18809 --- [main] com.cloud.LoginApplication               : Starting LoginApplication on Urvis-MacBook-Pro.local with PID 18809 (/Users/urvi/adv-cloud-git/csye7374-spring2019/webapp/spring-login-master/target/classes started by urvi in /Users/urvi/adv-cloud-git/csye7374-spring2019/webapp/spring-login-master)
+2019-02-09 18:53:28.846  INFO 18809 --- [main] com.cloud.LoginApplication               : The following profiles are active: default
+2019-02-09 18:53:28.897  INFO 18809 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6200f9cb: startup date [Sat Feb 09 18:53:28 EST 2019]; root of context hierarchy
+2019-02-09 18:53:29.240  INFO 18809 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'bCryptPasswordEncoder' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=customAuthenticationProvider; factoryMethodName=bCryptPasswordEncoder; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cloud/configuration/CustomAuthenticationProvider.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=securityConfiguration; factoryMethodName=bCryptPasswordEncoder; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cloud/configuration/SecurityConfiguration.class]]
+2019-02-09 18:53:29.536  INFO 18809 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$7f2c5d7a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-09 18:53:29.559  INFO 18809 --- [main] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2019-02-09 18:53:29.799  INFO 18809 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-02-09 18:53:29.815  INFO 18809 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-09 18:53:29.816  INFO 18809 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.34
+2019-02-09 18:53:29.818  INFO 18809 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/urvi/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-02-09 18:53:29.929  INFO 18809 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-09 18:53:29.929  INFO 18809 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1032 ms
+2019-02-09 18:53:30.014  INFO 18809 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-09 18:53:30.014  INFO 18809 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-09 18:53:30.014  INFO 18809 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-02-09 18:53:30.015  INFO 18809 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-09 18:53:30.015  INFO 18809 --- [localhost-startStop-1] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-09 18:53:30.015  INFO 18809 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-09 18:53:30.016  INFO 18809 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet messageDispatcherServlet mapped to [/services/*]
+2019-02-09 18:53:30.605  INFO 18809 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2019-02-09 18:53:30.605  INFO 18809 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2019-02-09 18:53:30.606  INFO 18809 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2019-02-09 18:53:30.606  INFO 18809 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2019-02-09 18:53:30.606  INFO 18809 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2019-02-09 18:53:30.662  INFO 18809 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4e73b552, org.springframework.security.web.context.SecurityContextPersistenceFilter@7fb33394, org.springframework.security.web.header.HeaderWriterFilter@363a3d15, org.springframework.security.web.authentication.logout.LogoutFilter@6009bea, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@2f98635e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1a891add, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c768ada, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@221dad51, org.springframework.security.web.session.SessionManagementFilter@5acc9fdf, org.springframework.security.web.access.ExceptionTranslationFilter@783115d9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@eb507b9]
+2019-02-09 18:53:30.726  INFO 18809 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:53:30.898  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6200f9cb: startup date [Sat Feb 09 18:53:28 EST 2019]; root of context hierarchy
+2019-02-09 18:53:30.940  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/healthcheck],methods=[GET],produces=[application/json]}" onto public java.lang.String com.cloud.LoginApplication.healthCheck()
+2019-02-09 18:53:30.942  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}],methods=[PUT]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.update(java.lang.String,com.cloud.model.Transaction,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:53:30.943  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}],methods=[DELETE]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.delete(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:53:30.943  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction],methods=[POST]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.create(com.cloud.model.Transaction,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:53:30.943  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction],methods=[GET]}" onto public com.cloud.model.TransactionWrapper com.cloud.controller.TransactionController.findTransactionsByUserId(javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:53:30.944  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments],methods=[GET]}" onto public com.cloud.model.AttachmentWrapper com.cloud.controller.TransactionController.getReceipt(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:53:30.944  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments],methods=[POST]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.uploadReceipt(java.lang.String,org.springframework.web.multipart.MultipartFile)
+2019-02-09 18:53:30.944  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments/{attachmentId}],methods=[PUT]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.updateReceipt(java.lang.String,java.lang.String,org.springframework.web.multipart.MultipartFile)
+2019-02-09 18:53:30.944  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments/{attachmentId}],methods=[DELETE]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.deleteAttachment(java.lang.String,java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:53:30.945  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/time],methods=[GET],produces=[application/json]}" onto public java.lang.String com.cloud.controller.UserController.time()
+2019-02-09 18:53:30.946  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/logout],methods=[GET]}" onto public void com.cloud.controller.UserController.logout(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-02-09 18:53:30.946  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/register],methods=[POST]}" onto public java.lang.String com.cloud.controller.UserController.createNewUser(com.cloud.model.User,org.springframework.validation.BindingResult)
+2019-02-09 18:53:30.946  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/reset],methods=[GET]}" onto public com.cloud.model.Status com.cloud.controller.UserController.generateResetToken(java.lang.String)
+2019-02-09 18:53:30.950  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2019-02-09 18:53:30.951  INFO 18809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-02-09 18:53:30.983  INFO 18809 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:53:30.983  INFO 18809 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:53:31.261  INFO 18809 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2019-02-09 18:53:31.295 ERROR 18809 --- [main] o.apache.catalina.core.StandardService   : Failed to start connector [Connector[HTTP/1.1-8080]]
+
+org.apache.catalina.LifecycleException: Failed to start component [Connector[HTTP/1.1-8080]]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:167) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:225) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:261) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:198) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:300) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:162) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551) [spring-context-5.0.10.RELEASE.jar:5.0.10.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:386) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1242) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1230) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at com.cloud.LoginApplication.main(LoginApplication.java:23) [classes/:na]
+Caused by: org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1020) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	... 13 common frames omitted
+Caused by: java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method) ~[na:1.8.0_144]
+	at sun.nio.ch.Net.bind(Net.java:433) ~[na:1.8.0_144]
+	at sun.nio.ch.Net.bind(Net.java:425) ~[na:1.8.0_144]
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223) ~[na:1.8.0_144]
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74) ~[na:1.8.0_144]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:219) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1151) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:591) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1018) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	... 14 common frames omitted
+
+2019-02-09 18:53:31.298  INFO 18809 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-02-09 18:53:31.311  INFO 18809 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-02-09 18:53:31.315 ERROR 18809 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2019-02-09 18:53:31.316  INFO 18809 --- [main] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6200f9cb: startup date [Sat Feb 09 18:53:28 EST 2019]; root of context hierarchy
+2019-02-09 18:53:31.318  INFO 18809 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2019-02-09 18:54:07.173  INFO 18815 --- [main] com.cloud.LoginApplication               : Starting LoginApplication on Urvis-MacBook-Pro.local with PID 18815 (/Users/urvi/adv-cloud-git/csye7374-spring2019/webapp/spring-login-master/target/classes started by urvi in /Users/urvi/adv-cloud-git/csye7374-spring2019/webapp/spring-login-master)
+2019-02-09 18:54:07.178  INFO 18815 --- [main] com.cloud.LoginApplication               : The following profiles are active: default
+2019-02-09 18:54:07.278  INFO 18815 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7817fd62: startup date [Sat Feb 09 18:54:07 EST 2019]; root of context hierarchy
+2019-02-09 18:54:08.017  INFO 18815 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'bCryptPasswordEncoder' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=customAuthenticationProvider; factoryMethodName=bCryptPasswordEncoder; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cloud/configuration/CustomAuthenticationProvider.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=securityConfiguration; factoryMethodName=bCryptPasswordEncoder; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cloud/configuration/SecurityConfiguration.class]]
+2019-02-09 18:54:08.889  INFO 18815 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$22c61942] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-09 18:54:08.936  INFO 18815 --- [main] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2019-02-09 18:54:09.606  INFO 18815 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-02-09 18:54:09.676  INFO 18815 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-09 18:54:09.676  INFO 18815 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.34
+2019-02-09 18:54:09.684  INFO 18815 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/urvi/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-02-09 18:54:09.892  INFO 18815 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-09 18:54:09.894  INFO 18815 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2614 ms
+2019-02-09 18:54:10.154  INFO 18815 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-09 18:54:10.156  INFO 18815 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-09 18:54:10.156  INFO 18815 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-02-09 18:54:10.157  INFO 18815 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-09 18:54:10.158  INFO 18815 --- [localhost-startStop-1] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-09 18:54:10.158  INFO 18815 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-09 18:54:10.160  INFO 18815 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet messageDispatcherServlet mapped to [/services/*]
+2019-02-09 18:54:11.414  INFO 18815 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2019-02-09 18:54:11.415  INFO 18815 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2019-02-09 18:54:11.416  INFO 18815 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2019-02-09 18:54:11.416  INFO 18815 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2019-02-09 18:54:11.416  INFO 18815 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2019-02-09 18:54:11.651  INFO 18815 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7c29adc8, org.springframework.security.web.context.SecurityContextPersistenceFilter@36b310aa, org.springframework.security.web.header.HeaderWriterFilter@7dff6d05, org.springframework.security.web.authentication.logout.LogoutFilter@75308740, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@9d7ccfe, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3874b815, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@162b3d47, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4b2e3e8f, org.springframework.security.web.session.SessionManagementFilter@8b91134, org.springframework.security.web.access.ExceptionTranslationFilter@6d2dc9d2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@39c1fe0b]
+2019-02-09 18:54:11.875  INFO 18815 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:54:12.167  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7817fd62: startup date [Sat Feb 09 18:54:07 EST 2019]; root of context hierarchy
+2019-02-09 18:54:12.252  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/healthcheck],methods=[GET],produces=[application/json]}" onto public java.lang.String com.cloud.LoginApplication.healthCheck()
+2019-02-09 18:54:12.256  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}],methods=[PUT]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.update(java.lang.String,com.cloud.model.Transaction,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:12.257  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}],methods=[DELETE]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.delete(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:12.257  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction],methods=[POST]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.create(com.cloud.model.Transaction,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:12.258  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction],methods=[GET]}" onto public com.cloud.model.TransactionWrapper com.cloud.controller.TransactionController.findTransactionsByUserId(javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:12.259  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments],methods=[GET]}" onto public com.cloud.model.AttachmentWrapper com.cloud.controller.TransactionController.getReceipt(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:12.264  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments],methods=[POST]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.uploadReceipt(java.lang.String,org.springframework.web.multipart.MultipartFile)
+2019-02-09 18:54:12.265  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments/{attachmentId}],methods=[PUT]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.updateReceipt(java.lang.String,java.lang.String,org.springframework.web.multipart.MultipartFile)
+2019-02-09 18:54:12.265  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments/{attachmentId}],methods=[DELETE]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.deleteAttachment(java.lang.String,java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:12.267  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/time],methods=[GET],produces=[application/json]}" onto public java.lang.String com.cloud.controller.UserController.time()
+2019-02-09 18:54:12.272  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/logout],methods=[GET]}" onto public void com.cloud.controller.UserController.logout(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-02-09 18:54:12.283  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/register],methods=[POST]}" onto public java.lang.String com.cloud.controller.UserController.createNewUser(com.cloud.model.User,org.springframework.validation.BindingResult)
+2019-02-09 18:54:12.289  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/reset],methods=[GET]}" onto public com.cloud.model.Status com.cloud.controller.UserController.generateResetToken(java.lang.String)
+2019-02-09 18:54:12.312  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2019-02-09 18:54:12.314  INFO 18815 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-02-09 18:54:12.395  INFO 18815 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:54:12.395  INFO 18815 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:54:12.980  INFO 18815 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2019-02-09 18:54:13.026 ERROR 18815 --- [main] o.apache.catalina.core.StandardService   : Failed to start connector [Connector[HTTP/1.1-8080]]
+
+org.apache.catalina.LifecycleException: Failed to start component [Connector[HTTP/1.1-8080]]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:167) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:225) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:261) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:198) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:300) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:162) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551) [spring-context-5.0.10.RELEASE.jar:5.0.10.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:386) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1242) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1230) [spring-boot-2.0.6.RELEASE.jar:2.0.6.RELEASE]
+	at com.cloud.LoginApplication.main(LoginApplication.java:23) [classes/:na]
+Caused by: org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1020) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	... 13 common frames omitted
+Caused by: java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method) ~[na:1.8.0_144]
+	at sun.nio.ch.Net.bind(Net.java:433) ~[na:1.8.0_144]
+	at sun.nio.ch.Net.bind(Net.java:425) ~[na:1.8.0_144]
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223) ~[na:1.8.0_144]
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74) ~[na:1.8.0_144]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:219) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1151) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:591) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1018) ~[tomcat-embed-core-8.5.34.jar:8.5.34]
+	... 14 common frames omitted
+
+2019-02-09 18:54:13.030  INFO 18815 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-02-09 18:54:13.046  INFO 18815 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-02-09 18:54:13.051 ERROR 18815 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2019-02-09 18:54:13.052  INFO 18815 --- [main] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7817fd62: startup date [Sat Feb 09 18:54:07 EST 2019]; root of context hierarchy
+2019-02-09 18:54:13.054  INFO 18815 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2019-02-09 18:54:48.168  INFO 18824 --- [main] com.cloud.LoginApplication               : Starting LoginApplication on Urvis-MacBook-Pro.local with PID 18824 (/Users/urvi/adv-cloud-git/csye7374-spring2019/webapp/spring-login-master/target/classes started by urvi in /Users/urvi/adv-cloud-git/csye7374-spring2019/webapp/spring-login-master)
+2019-02-09 18:54:48.172  INFO 18824 --- [main] com.cloud.LoginApplication               : The following profiles are active: default
+2019-02-09 18:54:48.210  INFO 18824 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@587e5365: startup date [Sat Feb 09 18:54:48 EST 2019]; root of context hierarchy
+2019-02-09 18:54:48.581  INFO 18824 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'bCryptPasswordEncoder' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=customAuthenticationProvider; factoryMethodName=bCryptPasswordEncoder; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cloud/configuration/CustomAuthenticationProvider.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=securityConfiguration; factoryMethodName=bCryptPasswordEncoder; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cloud/configuration/SecurityConfiguration.class]]
+2019-02-09 18:54:48.885  INFO 18824 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$57e61c1f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-09 18:54:48.909  INFO 18824 --- [main] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2019-02-09 18:54:49.216  INFO 18824 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-02-09 18:54:49.238  INFO 18824 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-09 18:54:49.238  INFO 18824 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.34
+2019-02-09 18:54:49.242  INFO 18824 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/urvi/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-02-09 18:54:49.347  INFO 18824 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-09 18:54:49.348  INFO 18824 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1138 ms
+2019-02-09 18:54:49.415  INFO 18824 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-09 18:54:49.416  INFO 18824 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-09 18:54:49.416  INFO 18824 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-02-09 18:54:49.416  INFO 18824 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-09 18:54:49.417  INFO 18824 --- [localhost-startStop-1] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-09 18:54:49.417  INFO 18824 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-09 18:54:49.418  INFO 18824 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet messageDispatcherServlet mapped to [/services/*]
+2019-02-09 18:54:50.167  INFO 18824 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2019-02-09 18:54:50.167  INFO 18824 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2019-02-09 18:54:50.167  INFO 18824 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2019-02-09 18:54:50.167  INFO 18824 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2019-02-09 18:54:50.167  INFO 18824 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2019-02-09 18:54:50.230  INFO 18824 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@240f6c41, org.springframework.security.web.context.SecurityContextPersistenceFilter@5ff90645, org.springframework.security.web.header.HeaderWriterFilter@4efc25fc, org.springframework.security.web.authentication.logout.LogoutFilter@664e5dee, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@771cbb1a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@74aa9c72, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d5b5fa7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3659d7b1, org.springframework.security.web.session.SessionManagementFilter@5176d279, org.springframework.security.web.access.ExceptionTranslationFilter@43a51d00, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7fc7c4a]
+2019-02-09 18:54:50.343  INFO 18824 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:54:50.579  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@587e5365: startup date [Sat Feb 09 18:54:48 EST 2019]; root of context hierarchy
+2019-02-09 18:54:50.630  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/healthcheck],methods=[GET],produces=[application/json]}" onto public java.lang.String com.cloud.LoginApplication.healthCheck()
+2019-02-09 18:54:50.633  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}],methods=[PUT]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.update(java.lang.String,com.cloud.model.Transaction,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:50.634  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}],methods=[DELETE]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.delete(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:50.634  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction],methods=[POST]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.create(com.cloud.model.Transaction,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:50.634  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction],methods=[GET]}" onto public com.cloud.model.TransactionWrapper com.cloud.controller.TransactionController.findTransactionsByUserId(javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:50.635  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments],methods=[GET]}" onto public com.cloud.model.AttachmentWrapper com.cloud.controller.TransactionController.getReceipt(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:50.635  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments],methods=[POST]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.uploadReceipt(java.lang.String,org.springframework.web.multipart.MultipartFile)
+2019-02-09 18:54:50.636  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments/{attachmentId}],methods=[PUT]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.updateReceipt(java.lang.String,java.lang.String,org.springframework.web.multipart.MultipartFile)
+2019-02-09 18:54:50.636  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/transaction/{id}/attachments/{attachmentId}],methods=[DELETE]}" onto public com.cloud.model.Status com.cloud.controller.TransactionController.deleteAttachment(java.lang.String,java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2019-02-09 18:54:50.637  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/logout],methods=[GET]}" onto public void com.cloud.controller.UserController.logout(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-02-09 18:54:50.638  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/time],methods=[GET],produces=[application/json]}" onto public java.lang.String com.cloud.controller.UserController.time()
+2019-02-09 18:54:50.641  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/register],methods=[POST]}" onto public java.lang.String com.cloud.controller.UserController.createNewUser(com.cloud.model.User,org.springframework.validation.BindingResult)
+2019-02-09 18:54:50.644  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/reset],methods=[GET]}" onto public com.cloud.model.Status com.cloud.controller.UserController.generateResetToken(java.lang.String)
+2019-02-09 18:54:50.650  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2019-02-09 18:54:50.650  INFO 18824 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-02-09 18:54:50.704  INFO 18824 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:54:50.705  INFO 18824 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-09 18:54:51.076  INFO 18824 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2019-02-09 18:54:51.120  INFO 18824 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-02-09 18:54:51.123  INFO 18824 --- [main] com.cloud.LoginApplication               : Started LoginApplication in 3.235 seconds (JVM running for 3.748)
+2019-02-09 18:55:15.956  INFO 18824 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2019-02-09 18:55:15.957  INFO 18824 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2019-02-09 18:55:15.981  INFO 18824 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 24 ms
+2019-02-09 18:58:43.811  INFO 18824 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2019-02-09 18:58:43.815  INFO 18824 --- [RMI TCP Connection(2)-127.0.0.1] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@587e5365: startup date [Sat Feb 09 18:54:48 EST 2019]; root of context hierarchy
+2019-02-09 18:58:43.827  INFO 18824 --- [RMI TCP Connection(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown

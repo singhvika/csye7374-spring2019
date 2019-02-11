@@ -1,0 +1,9 @@
+---
+  accountId: "{{ accountId }}"
+  tag: "{{ tag }}"
+  appName: "{{ appName }}"
+  ecr: "{{ ecr }}"
+  containerName: "{{ containerName }}"
+  appName: "{{ appName }}"
+  podName: "{{ podName }}"
+...

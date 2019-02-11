@@ -1,0 +1,6 @@
+---
+- name: Create and Publish Web app container
+  hosts:  localhost
+  roles:
+      - kops/deploy_pod  
+...

@@ -1,0 +1,7 @@
+---
+  - name: Create and Publish Web app container
+    hosts:  localhost
+    roles:
+      - kops/build_image  
+      - kops/push_image  
+...

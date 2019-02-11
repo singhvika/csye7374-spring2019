@@ -1,0 +1,60 @@
+---
+#roles/deploy_pod/tasks
+
+  - name: Form ECR URI - add ecr name
+    replace:
+      path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
+      regexp: '.*'
+      replace: '{{ ecr }}'
+      after: ':[a-zA-Z0-9]*'
+      before: '.dkr.ecr.us-east-1.amazonaws.com/'
+      backup: no
+  
+  - name: Form ECR URI - add account id
+    replace:
+      path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
+      regexp: '.*'
+      replace: '{{ accountId }}'
+      after: '.dkr.ecr.us-east-1.amazonaws.com/{{ ecr }}:*'
+      before: '- image: '
+      backup: no
+
+  - name: Form ECR URI - add image tag
+    replace:
+      path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
+      regexp: '.*'
+      replace: '{{ tag }}'
+      after: '\n    name: *'
+      before: '.dkr.ecr.us-east-1.amazonaws.com/{{ ecr }}:*'
+      backup: no
+
+  - name: Container name
+    replace:
+      path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
+      regexp: '.*'
+      replace: '{{ containerName }}'
+      after: '\n    ports:*'
+      before: '    name: '
+      backup: no
+
+  - name: Application name
+    replace:
+      path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
+      regexp: '.*'
+      replace: '{{ appName }}'
+      after: '\nspec:*'
+      before: '    app: '
+      backup: no
+
+  - name: Pod name
+    replace:
+      path: "{{ playbook_dir }}/../k8s/app/pod.yaml"
+      regexp: '.*'
+      replace: '{{ podName }}'
+      after: '\n  labels:*'
+      before: '  name: '
+      backup: no
+  
+  - name: Deploy pod
+    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/pod.yaml"
+...

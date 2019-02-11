@@ -3,5 +3,5 @@
     hosts:  localhost
     roles:
       - kops/build_image  
-      - kops/publish_image  
+      - kops/push_image  
 ...

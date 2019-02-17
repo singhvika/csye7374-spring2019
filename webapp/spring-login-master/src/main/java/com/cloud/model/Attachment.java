@@ -27,7 +27,7 @@ public class Attachment{
 	@Column(name = "id", columnDefinition = "BINARY(16)")
 	private UUID id;
 	
-	//@Column(name = "uri")
+	@Column(name = "uri")
 	private String uri;
 	
 	@ManyToOne

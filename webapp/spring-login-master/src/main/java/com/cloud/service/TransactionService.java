@@ -15,10 +15,10 @@ import com.cloud.repository.TransactionRepository;
 @Service("transactionService")
 public class TransactionService {
 
-	//@Autowired
+	@Autowired
 	private TransactionRepository transactionRepository;
 	
-	//@Autowired 
+	@Autowired 
 	private AttachmentRepository attachmentRepository;
 
 	/**
@@ -49,7 +49,6 @@ public class TransactionService {
 	 * @param id
 	 */
 	public void deleteById(String id) {
-		
 		transactionRepository.deleteById(UUID.fromString(id));
 
 	}
@@ -61,8 +60,8 @@ public class TransactionService {
 	 * @return
 	 */
 	public List<Transaction> findByUserId(int userId) {
-		//List<Transaction> transactions = transactionRepository.findByUserId(userId);
-		return null;
+		List<Transaction> transactions = transactionRepository.findByUserId(userId);
+		return transactions;
 	}
 	
 	/**
@@ -113,4 +112,3 @@ public class TransactionService {
 		}
 	}
 }
-

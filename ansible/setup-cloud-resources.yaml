@@ -10,20 +10,12 @@
         register: securityGroupRDS
 
       - name: Get any of the closest zones
-        shell: aws ec2 describe-instances --filters 'Name=tag:KubernetesCluster,Values={{clusterName}}' --query 'Reservations[1].Instances[0].Placement.AvailabilityZone' | grep -oP "([a-zA-Z0-9\.\-])*"
+        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query 'Reservations[0].Instances[0].Placement.AvailabilityZone' | grep -oP "([a-zA-Z0-9\.\-])*"
         register: closeZone
 
       - name: Get VpcId
         shell:  aws ec2 describe-vpcs --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}]' --query 'Vpcs[0].VpcId' | grep -oP "([a-zA-Z0-9\.\-])*"
         register: vpcId
-
-      - name: Get Subnet for RDS
-        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query 'Reservations[0].Instances[0].SubnetId' | grep -oP "([a-zA-Z0-9\.\-])*"
-        register: subnetRDS
-
-      - name: Print 
-        debug:
-          msg: "SECURITY GROUPS IS {{securityGroupRDS.stdout}} \\n CLOSE ZONE IS {{closeZone.stdout}} VPCID: {{vpcId.stdout}}"
            
       - name: Get Facts of VPC
         ec2_vpc_subnet_facts:
@@ -49,6 +41,20 @@
           tags:
             ClusterName: "{{clusterName}}"
 
+      - name: "Create Full Access S3 roles for Ec2 instances"
+        iam_role:
+          name: s3FullAccess-{{clusterName}}
+
+      - name: "Get Role ARN"
+        shell: aws iam get-role --role-name s3FullAccess-{{clusterName}} | grep -oP '([a-zA-Z0-9\.\-/:])*'
+        register: roleArn;
+
+      - name: Attach Role to EC2 list
+        ec2_instance:
+          filters: 
+            "tag:clusterName":  "nodes.{{clusterName}}"
+          instance_role: "{{roleArn}}"
+
       - name: Create RDS Instance
         rds:
           command:  create
@@ -64,12 +70,6 @@
           username: "user12345678"
           password: "user12345678"
           tags:
-            ClusterName: "{{clusterName}}"
+            clusterName: "{{clusterName}}"
           wait: yes
-
-      - name: Create IAM Role
-        iam:
-          iam_type: role
-          name: vrt1
-          state: present
 ...

@@ -1,0 +1,58 @@
+---
+  - name: Create Cloud Resources
+    hosts:  localhost
+    vars:
+      clusterName: "{{clusterName}}"
+    tasks:
+      - name: Get the security group ID for RDS instance
+        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query "Reservations[0].Instances[0].SecurityGroups[0].GroupId" | grep -oP "([a-zA-Z0-9\.\-])*"
+        register: securityGroupRDS
+
+      - name: Get any of the closest zones
+        shell: aws ec2 describe-instances --filters 'Name=tag:KubernetesCluster,Values={{clusterName}}' --query 'Reservations[1].Instances[0].Placement.AvailabilityZone' | grep -oP "([a-zA-Z0-9\.\-])*"
+        register: closeZone
+
+      - name: Get VpcId
+        shell:  aws ec2 describe-vpcs --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}]' --query 'Vpcs[0].VpcId' | grep -oP "([a-zA-Z0-9\.\-])*"
+        register: vpcId
+
+      - name: Get Subnet for RDS
+        shell: aws ec2 describe-instances --filters 'Name=tag:KubernetesCluster,Values={{clusterName}}' --query 'Reservations[1].Instances[0].SubnetId' | grep -oP "([a-zA-Z0-9\.\-])*"
+        register: subnetRDS
+
+      - name: Print 
+        debug:
+          msg: "SECURITY GROUPS IS {{securityGroupRDS.stdout}} \\n CLOSE ZONE IS {{closeZone.stdout}} VPCID: {{vpcId.stdout}}"
+
+      - name: Create S3 bucket
+        s3_bucket:
+          name: "{{clusterName}}"
+          state: present
+          region: us-east-1
+          tags:
+            ClusterName: "{{clusterName}}"
+
+      - name: Create RDS Instance
+        rds:
+          command:  create
+          instance_name:  rdskubernetes
+          instance_type: db.t2.micro
+          db_engine:  MySQL
+          size: "100"
+          multi_zone: no
+          region: "us-east-1"
+          zone: "{{closeZone.stdout}}"
+          subnet: "default"
+          vpc_security_groups: "{{securityGroupRDS.stdout}}"
+          username: "user12345678"
+          password: "user12345678"
+          tags:
+            ClusterName: "{{clusterName}}"
+          wait: yes
+
+      - name: Create IAM Role
+        iam:
+          iam_type: role
+          name: vrt1
+          state: present
+...

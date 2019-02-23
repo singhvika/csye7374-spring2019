@@ -6,4 +6,5 @@
   containerName: "{{ containerName }}"
   appName: "{{ appName }}"
   podName: "{{ podName }}"
+  s3endpoint: "{{ s3endpoint }}"
 ...

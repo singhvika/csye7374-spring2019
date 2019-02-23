@@ -6,15 +6,15 @@
       rdsSubnetGroup: "subnetGroup-rds-{{clusterName}}"
     tasks:
       - name: Get the security group ID for RDS instance
-        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query "Reservations[0].Instances[0].SecurityGroups[0].GroupId" | grep -oP "([a-zA-Z0-9\.\-])*"
+        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query "Reservations[0].Instances[0].SecurityGroups[0].GroupId" | tr -d \"
         register: securityGroupRDS
 
       - name: Get any of the closest zones
-        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query 'Reservations[0].Instances[0].Placement.AvailabilityZone' | grep -oP "([a-zA-Z0-9\.\-])*"
+        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query 'Reservations[0].Instances[0].Placement.AvailabilityZone' | tr -d \"
         register: closeZone
 
       - name: Get VpcId
-        shell:  aws ec2 describe-vpcs --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}]' --query 'Vpcs[0].VpcId' | grep -oP "([a-zA-Z0-9\.\-])*"
+        shell:  aws ec2 describe-vpcs --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}]' --query 'Vpcs[0].VpcId' | tr -d \"
         register: vpcId
            
       - name: Get Facts of VPC
@@ -46,7 +46,7 @@
           name: s3FullAccess-{{clusterName}}
 
       - name: "Get Role ARN"
-        shell: aws iam get-role --role-name s3FullAccess-{{clusterName}} | grep -oP '([a-zA-Z0-9\.\-/:])*'
+        shell: aws iam get-role --role-name s3FullAccess-{{clusterName}} | tr -d \"
         register: roleArn;
 
       - name: Attach Role to EC2 list

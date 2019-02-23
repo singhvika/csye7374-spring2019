@@ -7,40 +7,43 @@ metadata:
     app: csye7374webapp
 spec:
   containers:
-  - image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:csye7374image2
+  - image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:csye7374image
     name: csye7374container
     ports:
     - containerPort: 8080    
       protocol: TCP
-    volumeMounts:
-      - name: foo
-        mountPath: "/etc/foo"
-  volumes:
-    - name: foo
-      secret:
-        secretName: csye7374-config-db-config
-        items:
-        - key: DB_USER
-          path: my-db/my-username
-          mode: 511
-#    env:
-#      - name: SECRETS_DB_USERNAME
-#        valueFrom:
-#          secretKeyRef:
-#            name: csye7374-config-db-config
-#            key: DB_USER
-#      - name: SECRETS_DB_URL
-#        valueFrom:
-#          secretKeyRef:
-#            name: csye7374-config-db-config
-#            key: DB_URL
-#      - name: SECRETS_DB_PASSWORD
-#        valueFrom:
-#          secretKeyRef:
-#            name: csye7374-config-db-config
-#            key: DB_PASSWD
-#      - name: SECRETS_S3_BUCKETNAME
-#        valueFrom:
-#          configMapKeyRef:
-#            name: csye7374-app-config
-#            key: s3_bucket
+    env:
+    - name: SECRETS_S3_BUCKETNAME
+      valueFrom:
+        configMapKeyRef:
+          name: csye7374-app-config
+          key: s3_bucket
+    - name: SECRETS_DB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: csye7374-config-db-config
+          key: DB_USER
+    - name: SECRETS_DB_URL
+      valueFrom:
+        secretKeyRef:
+          name: csye7374-config-db-config
+          key: DB_URL
+    - name: SECRETS_DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: csye7374-config-db-config
+          key: DB_PASSWD
+#    volumeMounts:
+#      - name: foo
+#        mountPath: "/etc/secrets"
+#  volumes:
+#    - name: foo
+#      secret:
+#        secretName: csye7374-config-db-config
+#        items:
+#         - key: DB_USER
+#           path: my-db/my-username
+#         - key: DB_PASSWD
+#           path: my-db/my-password
+#         - key: DB_URL
+#           path: my-db/my-db-url

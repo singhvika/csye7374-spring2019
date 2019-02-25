@@ -1,0 +1,12 @@
+---
+  - name: Create Cloud Resources
+    hosts:  localhost
+    vars:
+      rdsSubnetGroup: "subnetGroup-rds-csye6225-spring2018-singhvika.me"
+    tasks:
+      - name: Delete RDS Subnet Group
+        rds_subnet_group:
+          name: "{{rdsSubnetGroup}}"
+          state: "absent"
+          region: "us-east-1"
+...

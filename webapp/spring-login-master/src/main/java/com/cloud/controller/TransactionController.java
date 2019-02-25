@@ -505,11 +505,13 @@ public class TransactionController {
 			if(!baseClient.doesBucketExist())
 			{
 				//Set the response code to 503 success
+				logger.info("healthcheck Failed");
 				response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 			}
 			else
 			{
 				//Set the response code to 200 success
+				logger.info("healthcheck Passed");
 				response.setStatus(HttpServletResponse.SC_OK);
 			}
 		}

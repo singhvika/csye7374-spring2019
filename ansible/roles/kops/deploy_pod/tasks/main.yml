@@ -6,6 +6,11 @@
       src: configmap-template.yaml
       dest: "{{ playbook_dir }}/../k8s/app/configmap.yaml"
 
+  - name: Jinja Template Copy for Load Balancer File
+    template:
+      src: loadbalancer-template.yaml
+      dest: "{{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
+
   - name: Jinja Template Copy for Replication Controller File
     template:
       src: replication-controller-template.yaml

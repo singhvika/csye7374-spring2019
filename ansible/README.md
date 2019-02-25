@@ -20,6 +20,14 @@
 
 `ansible-playbook docker-push-image.yaml --extra-vars "applicationName=application-name tag=image-tag ecr=ecr-name accountId=aws-account-id”`
 
+### To Setup all the Cloud Resources, You need you install boto3 and botocore on your machine.
+`pip install boto3`
+
+`pip install botocore` 
+
+#### And then use: 
+
+`ansible-playbook setup-cloud-resources.yaml --extra-vars "clusterName=cluster-name"`
 
 ### To deploy the containers with docker image using pods, use the following command:
 

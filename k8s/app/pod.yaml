@@ -2,16 +2,28 @@
 apiVersion: v1               
 kind: Pod                    
 metadata:
-  name: csye7374pod
+  name: latestpod
   labels:                                                 
     app: csye7374webapp
 spec:
   containers:
-  - image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:csye7374image
+  - image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:latestimage3
     name: csye7374container
     ports:
     - containerPort: 8080    
       protocol: TCP
+    livenessProbe:
+      httpGet:
+        path: /healthcheck
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /healthcheck
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 10
     env:
     - name: SECRETS_S3_BUCKETNAME
       valueFrom:

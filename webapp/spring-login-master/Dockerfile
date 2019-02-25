@@ -8,5 +8,5 @@ RUN sh -c 'touch cloudApp-0.0.1.jar'
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=dev","cloudApp-0.0.1.jar"]
+ENTRYPOINT ["java","-jar","cloudApp-0.0.1.jar"]
 

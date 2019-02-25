@@ -30,8 +30,7 @@ public class AmazonClient implements BaseClient{
 
 	@Value("${amazonProperties.endpointUrl}")
 	private String endpointUrl;
-//	@Value("${spring.bucket.name}")
-//	private String bucketName;
+	
 	@Value("${amazonProperties.bucketName}")
 	private String bucketName;
 
@@ -66,5 +65,12 @@ public class AmazonClient implements BaseClient{
 		String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
 		s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
 		return CommonConstants.DELETE_ATTACHMENTS_SUCCESS;
+	}
+	
+	@Override
+	public boolean doesBucketExist() throws Exception {
+		
+		return s3client.doesBucketExist(bucketName);
+		
 	}
 }

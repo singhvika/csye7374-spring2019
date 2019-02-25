@@ -53,6 +53,9 @@ public class CommonConstants {
 	/* Attachment deleted successfully */
 	public static String DELETE_ATTACHMENTS_SUCCESS = "Deleted Successfully";
 	
+	/* Attachment retrieved successfully */
+	public static String GET_ATTACHMENTS_SUCCESS = "Got Image Successfully";
+	
 	/* Attachment not present */
 	public static String ATTACHMENTS_NOT_PRESENT = "Receipt not present for the transaction";
 	

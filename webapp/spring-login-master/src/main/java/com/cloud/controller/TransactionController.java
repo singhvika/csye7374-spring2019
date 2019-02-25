@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,10 +32,6 @@ import com.cloud.service.BaseClient;
 import com.cloud.service.TransactionService;
 import com.cloud.service.UserService;
 import com.cloud.util.Utils;
-import com.timgroup.statsd.StatsDClient;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 public class TransactionController {
@@ -478,5 +476,51 @@ public class TransactionController {
 		{
 			transaction.setUser(null);
 		}
+	}
+	
+	@RequestMapping(value={"/healthcheck"}, method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void healthCheck(HttpServletResponse response) throws Exception {
+
+		logger.info("healthcheck Start");
+		
+		try
+		{
+			// Check if the admin user exists
+			User userExists = userService.findUserByEmail("admin");
+
+			//If user does not exists create an admin user
+			if (userExists == null) {
+				User user = new User();
+				user.setEmail("admin@gmail.com");
+				user.setPassword("admin");
+				user.setName("admin");
+				user.setLastName("admin");
+				user.setActive(1);
+				String[] roles = new String[] {"ROLE_USER","ROLE_ADMIN"};
+				user.setRoles(roles);
+				userService.saveUser(user);
+			}
+			
+			if(!baseClient.doesBucketExist())
+			{
+				//Set the response code to 503 success
+				response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+			}
+			else
+			{
+				//Set the response code to 200 success
+				response.setStatus(HttpServletResponse.SC_OK);
+			}
+		}
+		catch(Exception e)
+		{
+			//Set the response code to 503
+			response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+		}
+		
+
+		logger.info("healthcheck End");
+		
 	}
 }

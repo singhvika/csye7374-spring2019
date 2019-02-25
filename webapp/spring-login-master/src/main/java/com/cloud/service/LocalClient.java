@@ -42,4 +42,12 @@ public class LocalClient implements BaseClient {
 
 	}
 
+	/**
+	 * Not Supported for local profile
+	 */
+	@Override
+	public boolean doesBucketExist() throws Exception {
+		return false;
+	}
+
 }

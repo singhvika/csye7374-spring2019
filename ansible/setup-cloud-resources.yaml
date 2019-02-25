@@ -4,27 +4,72 @@
     vars:
       clusterName: "{{clusterName}}"
       rdsSubnetGroup: "subnetGroup-rds-{{clusterName}}"
+      s3Name: "webapp.{{clusterName}}"
     tasks:
+      # S3 bucket needed for the webapp
+      - name: Create S3 bucket
+        s3_bucket:
+          name: "{{s3Name}}"
+          state: present
+          region: us-east-1
+          tags:
+            identifier: "webapp.{{clusterName}}"
+            ClusterName: "{{clusterName}}"
+
+      # Our EC2 should have the permission to access the S3 bucket. So first create the policy document which grants access to the s3 bucket we created above
+      - name: Create S3 Access policy document
+        copy:
+          content: '{"Version": "2012-10-17","Statement": [{"Sid": "ListObjectsInBucket","Effect": "Allow","Action": ["s3:ListBucket"],"Resource": ["arn:aws:s3:::web.k8s.csye6225-spring2018-singhvika.me"]},{"Sid": "AllObjectActions","Effect": "Allow","Action": "s3:*Object","Resource": ["arn:aws:s3:::{{clusterName}}/*"]}]}'
+          dest: policy.json
+
+      # Create the policy from the policy document created above, then attach it to the role which is attached to our EC2 instances
+      # thereby granting our EC2 instances access to the S3 bucket
+      - name: Create policy from the policy.json documents and attach to the role
+        iam_policy:
+          iam_type: role
+          iam_name: "nodes.{{clusterName}}"
+          policy_name: s3Access-policy-{{clusterName}}
+          state: present
+          policy_document: policy.json
+
+      # Delete the policy.json policy document
+      - name:  delete file in a remote server
+        file:
+          path: policy.json
+          state: absent
+
+      # Attach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+      # this cannot be achieved currently by the ansible module, hence we use shell
+      - name: Attach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+        shell: 'attach-role-policy --role-name "masters.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"'
+
+      # Get the security group for the RDS
       - name: Get the security group ID for RDS instance
-        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query "Reservations[0].Instances[0].SecurityGroups[0].GroupId" | grep -oP "([a-zA-Z0-9\.\-])*"
+        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query "Reservations[0].Instances[0].SecurityGroups[0].GroupId" | tr -d \"
         register: securityGroupRDS
 
+      # Get any of the closest zone of EC2 for spinning up the RDS instance in that zone
       - name: Get any of the closest zones
-        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query 'Reservations[0].Instances[0].Placement.AvailabilityZone' | grep -oP "([a-zA-Z0-9\.\-])*"
+        shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query 'Reservations[0].Instances[0].Placement.AvailabilityZone' | tr -d \"
         register: closeZone
 
+      # Get VPC ID to get the subnets later on
       - name: Get VpcId
-        shell:  aws ec2 describe-vpcs --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}]' --query 'Vpcs[0].VpcId' | grep -oP "([a-zA-Z0-9\.\-])*"
+        shell:  aws ec2 describe-vpcs --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}]' --query 'Vpcs[0].VpcId' | tr -d \"
         register: vpcId
-           
+
+      # Get VPC Facts, then fetch its subnets
       - name: Get Facts of VPC
         ec2_vpc_subnet_facts:
           filters:
             vpc-id: "{{vpcId.stdout}}"
         register: subnet_facts
 
+      # Create Subnet group for RDS which will have all the subnets of the VPC refered above
       - name: Create RDS Subnet Group
         vars:
+          # Get all Subnet ids and convert to a list
+          # this group will have all the subnets of our master ndoes and worker nodes
           subnet_ids: "{{ subnet_facts.subnets|map(attribute='id')|list }}"
         rds_subnet_group:
           name: "{{rdsSubnetGroup}}"
@@ -33,28 +78,9 @@
           state: "present"
           subnets: "{{subnet_ids}}"
 
-      - name: Create S3 bucket
-        s3_bucket:
-          name: "{{clusterName}}"
-          state: present
-          region: us-east-1
-          tags:
-            ClusterName: "{{clusterName}}"
-
-      - name: "Create Full Access S3 roles for Ec2 instances"
-        iam_role:
-          name: s3FullAccess-{{clusterName}}
-
-      - name: "Get Role ARN"
-        shell: aws iam get-role --role-name s3FullAccess-{{clusterName}} | grep -oP '([a-zA-Z0-9\.\-/:])*'
-        register: roleArn;
-
-      - name: Attach Role to EC2 list
-        ec2_instance:
-          filters: 
-            "tag:clusterName":  "nodes.{{clusterName}}"
-          instance_role: "{{roleArn}}"
-
+      # Finally create the RDS in one of the closeZone of our worker nodes
+      # subnet group contains all subnets which include our master and worker nodes 
+      # Security group is the same group as that of our worker nodes
       - name: Create RDS Instance
         rds:
           command:  create
@@ -72,4 +98,5 @@
           tags:
             clusterName: "{{clusterName}}"
           wait: yes
+          wait_timeout: 3000    
 ...

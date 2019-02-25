@@ -4,6 +4,10 @@
     vars:
       clusterName: "{{clusterName}}"
       rdsSubnetGroup: "subnetGroup-rds-{{clusterName}}"
+      rdsUsername: "csye6225"
+      rdsPassword: "csye6225password"
+      rdsDbName: "cloud"
+      rdsInstanceName: "rdskubernetes"
       s3Name: "webapp.{{clusterName}}"
     tasks:
       # S3 bucket needed for the webapp
@@ -19,7 +23,7 @@
       # Our EC2 should have the permission to access the S3 bucket. So first create the policy document which grants access to the s3 bucket we created above
       - name: Create S3 Access policy document
         copy:
-          content: '{"Version": "2012-10-17","Statement": [{"Sid": "ListObjectsInBucket","Effect": "Allow","Action": ["s3:ListBucket"],"Resource": ["arn:aws:s3:::web.k8s.csye6225-spring2018-singhvika.me"]},{"Sid": "AllObjectActions","Effect": "Allow","Action": "s3:*Object","Resource": ["arn:aws:s3:::{{clusterName}}/*"]}]}'
+          content: '{"Version": "2012-10-17","Statement": [{"Sid": "ListObjectsInBucket","Effect": "Allow","Action": ["s3:ListBucket"],"Resource": "*"},{"Sid": "AllObjectActions","Effect": "Allow","Action": "s3:*Object","Resource": "*"}]}'
           dest: policy.json
 
       # Create the policy from the policy document created above, then attach it to the role which is attached to our EC2 instances
@@ -85,18 +89,18 @@
       - name: Create RDS Instance
         rds:
           command:  create
-          instance_name:  rdskubernetes
+          instance_name:  "{{ rdsInstanceName }}"
           instance_type: db.t2.medium
           db_engine:  MySQL
-          db_name: cloud
+          db_name: "{{ rdsDbName }}"
           size: "100"
           multi_zone: no
           region: "us-east-1"
           zone: "{{closeZone.stdout}}"
           subnet: "{{rdsSubnetGroup}}"
           vpc_security_groups: "{{securityGroupRDS.stdout}}"
-          username: "csye6225"
-          password: "csye6225password"
+          username: "{{ rdsUsername }}"
+          password: "{{ rdsPassword }}"
           tags:
             clusterName: "{{clusterName}}"
           wait: yes

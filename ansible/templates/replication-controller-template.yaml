@@ -4,20 +4,20 @@ kind: ReplicationController
 metadata:
   name: cloudapp-replica-controller
   labels:
-    app: csye7374webapp
+    app: {{ appName }}
 spec:
   replicas: 3
   selector:
-    app: csye7374webapp
+    app: {{ appName }}
   template:
     metadata:
-      name: latestpod2
+      name: {{ podName }}
       labels:
-        app: csye7374webapp
+        app: {{ appName }}
     spec:
       containers:
-        - name: csye7374container
-          image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:latestimage3
+        - name: {{ containerName }}
+          image: {{ accountId }}.dkr.ecr.us-east-1.amazonaws.com/{{ ecr }}:{{ tag }}
           ports:
             - containerPort: 8080
               protocol: TCP

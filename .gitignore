@@ -11,3 +11,5 @@
 ### Ansible ###
 *.retry
 
+###
+*.gz

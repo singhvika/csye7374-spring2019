@@ -4,6 +4,8 @@
     vars:
       clusterName: "{{clusterName}}"
       rdsSubnetGroup: "subnetGroup-rds-{{clusterName}}"
+      rdsUsername: "csye6225"
+      rdsPassword: "csye6225password"
       s3Name: "webapp.{{clusterName}}"
     tasks:
       # S3 bucket needed for the webapp
@@ -94,8 +96,8 @@
           zone: "{{closeZone.stdout}}"
           subnet: "{{rdsSubnetGroup}}"
           vpc_security_groups: "{{securityGroupRDS.stdout}}"
-          username: "csye6225"
-          password: "csye6225password"
+          username: "{{ rdsUsername }}"
+          password: "{{ rdsPassword }}"
           tags:
             clusterName: "{{clusterName}}"
           wait: yes

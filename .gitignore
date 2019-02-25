@@ -1,4 +1,3 @@
-/target/
 !.mvn/wrapper/maven-wrapper.jar
 /*/target
 
@@ -10,6 +9,7 @@
 
 ### Ansible ###
 *.retry
+/*/molecule/
 
 ### Log Files ###
 *.gz

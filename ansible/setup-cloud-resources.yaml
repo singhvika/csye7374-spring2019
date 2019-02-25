@@ -24,6 +24,7 @@
 
       # Create the policy from the policy document created above, then attach it to the role which is attached to our EC2 instances
       # thereby granting our EC2 instances access to the S3 bucket
+      # This is an inline policy, not a managed policy
       - name: Create policy from the policy.json documents and attach to the role
         iam_policy:
           iam_type: role
@@ -85,7 +86,7 @@
         rds:
           command:  create
           instance_name:  rdskubernetes
-          instance_type: db.t2.micro
+          instance_type: db.t2.medium
           db_engine:  MySQL
           db_name: cloud
           size: "100"

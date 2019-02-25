@@ -1,12 +1,37 @@
 ---
-  - name: Create Cloud Resources
+  - name: Teardown Cloud Resources
     hosts:  localhost
     vars:
-      rdsSubnetGroup: "subnetGroup-rds-csye6225-spring2018-singhvika.me"
+      clusterName: "{{clusterName}}"
+      rdsSubnetGroup: "subnetGroup-rds-{{clusterName}}"
+      s3Name: "webapp.{{clusterName}}"
     tasks:
-      - name: Delete RDS Subnet Group
-        rds_subnet_group:
-          name: "{{rdsSubnetGroup}}"
-          state: "absent"
+      # S3 bucket needed for the webapp
+      - name: Delete S3 bucket
+        s3_bucket:
+          name: "{{s3Name}}"
+          state: absent
           region: "us-east-1"
+          force: yes
+
+      # Delete the rds instance without any snapshot
+      - name: Delete rds instance
+        rds:
+          instance_name:  rdskubernetes
+          command:  delete
+          region: "us-east-1"
+          wait: yes
+          wait_timeout: 3000 
+      
+      # Delete the rdsSubnetGroup associated with the rds cs_instance
+      - name: Delete the rdsSubnetGroup
+        rds_subnet_group:
+          state: absent
+          name: "{{rdsSubnetGroup}}"
+          region: "us-east-1"      
+
+      # Detach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+      # this cannot be achieved currently by the ansible module, hence we use shell
+      - name: Detach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+        shell: 'aws iam detach-role-policy --role-name "masters.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"'
 ...

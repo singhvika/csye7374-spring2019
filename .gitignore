@@ -13,3 +13,6 @@
 
 ### Log Files ###
 *.gz
+
+## Secret file
+k8s/app/secret.yaml

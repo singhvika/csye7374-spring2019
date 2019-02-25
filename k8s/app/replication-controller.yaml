@@ -11,7 +11,7 @@ spec:
     app: csye7374webapp
   template:
     metadata:
-      name: latestpod2
+      name: latestpod3
       labels:
         app: csye7374webapp
     spec:

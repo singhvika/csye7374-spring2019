@@ -1,14 +1,6 @@
 ---
 #roles/deploy_pod/tasks
 
-  - name: S3 Bucket name
-    replace:
-      path: "{{ playbook_dir }}/../k8s/app/configmap.yaml"
-      regexp: '.*'
-      replace: '{{ s3endpoint }}'
-      after: '  s3_bucket: webapp.'
-      backup: no
-
   - name: Jinja Template Copy for ConfigMap File
     template:
       src: configmap-template.yaml

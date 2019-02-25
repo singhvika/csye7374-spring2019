@@ -23,7 +23,7 @@
       # Our EC2 should have the permission to access the S3 bucket. So first create the policy document which grants access to the s3 bucket we created above
       - name: Create S3 Access policy document
         copy:
-          content: '{"Version": "2012-10-17","Statement": [{"Sid": "ListObjectsInBucket","Effect": "Allow","Action": ["s3:ListBucket"],"Resource": *},{"Sid": "AllObjectActions","Effect": "Allow","Action": "s3:*Object","Resource": *]}]}'
+          content: '{"Version": "2012-10-17","Statement": [{"Sid": "ListObjectsInBucket","Effect": "Allow","Action": ["s3:ListBucket"],"Resource": "*"},{"Sid": "AllObjectActions","Effect": "Allow","Action": "s3:*Object","Resource": "*"}]}'
           dest: policy.json
 
       # Create the policy from the policy document created above, then attach it to the role which is attached to our EC2 instances

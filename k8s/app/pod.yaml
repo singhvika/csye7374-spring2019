@@ -2,13 +2,13 @@
 apiVersion: v1               
 kind: Pod                    
 metadata:
-  name: latestpod
+  name: pod1
   labels:                                                 
-    app: csye7374webapp
+    app: cloudapp
 spec:
   containers:
-  - image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:latestimage3
-    name: csye7374container
+  - image: 479392477648”.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest4
+    name: webapp
     ports:
     - containerPort: 8080    
       protocol: TCP

@@ -2,9 +2,9 @@
 apiVersion: v1               
 kind: ReplicationController                    
 metadata:
-  name: cloudapp-replica-controller
+  name: pod1
   labels:
-    app: replication-controller
+    app: cloudapp
 spec:
   replicas: 3
   selector: 
@@ -16,8 +16,8 @@ spec:
         app: cloudapp
     spec:
       containers:
-      - name: cloudapp-container
-        image: 727992775278.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest5
+      - name: webapp
+        image: 479392477648.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest4
         ports:
         - containerPort: 8080    
           protocol: TCP
@@ -31,8 +31,8 @@ spec:
           httpGet:
             path: /healthcheck
             port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 10
+          initialDelaySeconds: 10
+          periodSeconds: 10
         env:
         - name: SECRETS_S3_BUCKETNAME
           valueFrom:

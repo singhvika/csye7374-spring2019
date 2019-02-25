@@ -8,4 +8,6 @@ public interface BaseClient {
 	
 	public String deleteFile(String fileUrl) throws Exception;
 	
+	boolean doesBucketExist() throws Exception;
+	
 }

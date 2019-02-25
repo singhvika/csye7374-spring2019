@@ -13,15 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloud.constants.CommonConstants;
-import com.cloud.model.Status;
 import com.cloud.model.User;
 import com.cloud.service.UserService;
-import com.timgroup.statsd.StatsDClient;
 
 @RestController
 public class UserController {
@@ -89,8 +86,7 @@ public class UserController {
 		
 		logger.info("Logout - End");
 	}
-    
-    
+  
   	/*
   	 * Temporarily Not Supported
   	 */

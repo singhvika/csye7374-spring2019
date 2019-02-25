@@ -31,15 +31,5 @@ public class LoginApplication{
 		logger.info("ping() " + request.getRemoteAddr());
     	return "pong";
     }
-	
-	@RequestMapping(value={"/healthcheck"}, method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public String time(){
-    	
-		logger.info("healthcheck Success");
-    	return "Success";
-    }
-
-    
 
 }

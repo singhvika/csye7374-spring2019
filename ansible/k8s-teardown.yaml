@@ -3,5 +3,5 @@
     hosts: localhost
     roles:
       - kops/common
-      - kops/teardown
+      - kops/teardown_cluster
 ...

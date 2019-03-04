@@ -1,0 +1,9 @@
+---
+  accountId: "{{ accountId }}"
+  tag: "{{ tag }}"
+  appName: "{{ appName }}"
+  ecr: "{{ ecr }}"
+  containerName: "{{ containerName }}"
+  podName: "{{ podName }}"
+  s3endpoint: "{{ s3endpoint }}"
+...

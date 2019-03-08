@@ -12,5 +12,13 @@
     register: clusterStatus
     until:  clusterStatus.stdout.find('Your cluster '+ clusterName +' is ready')  !=  -1
     retries:  20
-    delay:  60 
-   
+    delay:  60
+
+  # Attach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+  - name: Attach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+    shell: 'aws iam attach-role-policy --role-name "masters.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"'
+
+  # Attach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+  - name: Attach CloudWatchFullAccess Policy to the role of our worker nodes
+    shell: 'aws iam attach-role-policy --role-name "nodes.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/CloudWatchFullAccess"'
+...

@@ -1,6 +1,5 @@
 ---
-accountId: "{{ accountId }}"
-ecr:  "{{ ecr }}"
-tag:  "{{ tag }}"
-applicationName: "{{ applicationName }}"
+ecr: "{{ecr}}"
+tag: "{{tag}}"
+applicationName: "{{applicationName}}"
 ...

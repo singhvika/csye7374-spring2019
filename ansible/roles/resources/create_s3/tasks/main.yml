@@ -1,31 +1,36 @@
 ---
-#roles/deploy_pod/tasks
+#resources/create_s3/tasks
 
-  - name: Jinja Template Copy for ConfigMap File
-    template:
-      src: configmap-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/configmap.yaml"
+  # S3 bucket needed for the webapp
+  - name: Create S3 bucket
+    s3_bucket:
+      name: "{{s3Name}}"
+      state: present
+      region: us-east-1
+      tags:
+        identifier: "webapp.{{clusterName}}"
+        ClusterName: "{{clusterName}}"
 
-  - name: Jinja Template Copy for Load Balancer File
-    template:
-      src: loadbalancer-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
+  # Our EC2 should have the permission to access the S3 bucket. So first create the policy document which grants access to the s3 bucket we created above
+  - name: Create S3 Access policy document
+    copy:
+      content: '{"Version": "2012-10-17","Statement": [{"Sid": "ListObjectsInBucket","Effect": "Allow","Action": ["s3:ListBucket"],"Resource": "*"},{"Sid": "AllObjectActions","Effect": "Allow","Action": "s3:*Object","Resource": "*"}]}'
+      dest: policy.json
 
-  - name: Jinja Template Copy for Replication Controller File
-    template:
-      src: replication-controller-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/replication-controller.yaml"
+  # Create the policy from the policy document created above, then attach it to the role which is attached to our EC2 instances
+  # thereby granting our EC2 instances access to the S3 bucket
+  # This is an inline policy, not a managed policy
+  - name: Create policy from the policy.json documents and attach to the role
+    iam_policy:
+      iam_type: role
+      iam_name: "nodes.{{clusterName}}"
+      policy_name: s3Access-policy-{{clusterName}}
+      state: present
+      policy_document: policy.json
 
-  - name: Deploy ConfigMap
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/configmap.yaml"
-
-  - name: Deploy Secret
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/secret.yaml"
-
-  - name: Deploy Load Balancer Service
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
-  
-  - name: Deploy Replication Controller Pod
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/replication-controller.yaml"
-
+  # Delete the policy.json policy document
+  - name:  delete file in a remote server
+    file:
+      path: policy.json
+      state: absent
 ...

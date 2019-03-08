@@ -1,31 +1,67 @@
 ---
-#roles/deploy_pod/tasks
+#resources/create_rds/tasks
 
-  - name: Jinja Template Copy for ConfigMap File
+  # Get the security group for the RDS
+  - name: Get the security group ID for RDS instance
+    shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query "Reservations[0].Instances[0].SecurityGroups[0].GroupId" | tr -d \"
+    register: securityGroupRDS
+
+  # Get any of the closest zone of EC2 for spinning up the RDS instance in that zone
+  - name: Get any of the closest zones
+    shell: aws ec2 describe-instances --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}, {"Name":"instance.group-name","Values":["nodes.{{clusterName}}"]}]' --query 'Reservations[0].Instances[0].Placement.AvailabilityZone' | tr -d \"
+    register: closeZone
+
+  # Get VPC ID to get the subnets later on
+  - name: Get VpcId
+    shell:  aws ec2 describe-vpcs --filters '[{"Name":"tag:KubernetesCluster","Values":["{{clusterName}}"]}]' --query 'Vpcs[0].VpcId' | tr -d \"
+    register: vpcId
+
+  # Get VPC Facts, then fetch its subnets
+  - name: Get Facts of VPC
+    ec2_vpc_subnet_facts:
+      filters:
+        vpc-id: "{{vpcId.stdout}}"
+    register: subnet_facts
+
+  # Create Subnet group for RDS which will have all the subnets of the VPC refered above
+  - name: Create RDS Subnet Group
+    vars:
+      # Get all Subnet ids and convert to a list
+      # this group will have all the subnets of our master ndoes and worker nodes
+      subnet_ids: "{{ subnet_facts.subnets|map(attribute='id')|list }}"
+    rds_subnet_group:
+      name: "{{rdsSubnetGroup}}"
+      description: Subnet Group for RDS
+      region: us-east-1
+      state: "present"
+      subnets: "{{subnet_ids}}"
+
+  # Finally create the RDS in one of the closeZone of our worker nodes
+  # subnet group contains all subnets which include our master and worker nodes
+  # Security group is the same group as that of our worker nodes
+  - name: Create RDS Instance
+    rds:
+      command:  create
+      instance_name:  "{{rdsInstanceName}}"
+      instance_type: db.t2.medium
+      db_engine:  MySQL
+      db_name: "{{rdsDbName}}"
+      size: "25"
+      multi_zone: no
+      region: "us-east-1"
+      zone: "{{closeZone.stdout}}"
+      subnet: "{{rdsSubnetGroup}}"
+      vpc_security_groups: "{{securityGroupRDS.stdout}}"
+      username: "{{rdsUsername}}"
+      password: "{{rdsPassword}}"
+      tags:
+        clusterName: "{{clusterName}}"
+      wait: yes
+      wait_timeout: 3000
+    register: rdskubernetes
+
+  - name: Jinja Template Copy for DB Secret File
     template:
-      src: configmap-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/configmap.yaml"
-
-  - name: Jinja Template Copy for Load Balancer File
-    template:
-      src: loadbalancer-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
-
-  - name: Jinja Template Copy for Replication Controller File
-    template:
-      src: replication-controller-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/replication-controller.yaml"
-
-  - name: Deploy ConfigMap
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/configmap.yaml"
-
-  - name: Deploy Secret
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/secret.yaml"
-
-  - name: Deploy Load Balancer Service
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
-  
-  - name: Deploy Replication Controller Pod
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/replication-controller.yaml"
-
+      src: secret-template.yaml
+      dest: "{{ playbook_dir }}/../k8s/app/secret.yaml"
 ...

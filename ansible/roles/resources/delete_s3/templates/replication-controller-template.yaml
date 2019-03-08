@@ -4,20 +4,20 @@ kind: ReplicationController
 metadata:
   name: cloudapp-replica-controller
   labels:
-    app: cloud-app
+    app: {{ appName }}
 spec:
   replicas: 3
   selector:
-    app: cloud-app
+    app: {{ appName }}
   template:
     metadata:
-      name: cloud-pod
+      name: {{ podName }}
       labels:
-        app: cloud-app
+        app: {{ appName }}
     spec:
       containers:
-        - name: cloud-container
-          image: 727992775278.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest7
+        - name: {{ containerName }}
+          image: {{ accountId }}.dkr.ecr.us-east-1.amazonaws.com/{{ ecr }}:{{ tag }}
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -26,33 +26,33 @@ spec:
               path: /healthcheck
               port: 8080
             initialDelaySeconds: 10
-            periodSeconds: 100
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /healthcheck
               port: 8080
             initialDelaySeconds: 10
-            periodSeconds: 100
+            periodSeconds: 10
           env:
             - name: SECRETS_S3_BUCKETNAME
               valueFrom:
                 configMapKeyRef:
-                  name: csye7374-app-s3-configmap
+                  name: csye7374-app-config
                   key: s3_bucket
             - name: SECRETS_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: csye7374-db-secret
+                  name: csye7374-config-db-config
                   key: DB_USER
             - name: SECRETS_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: csye7374-db-secret
+                  name: csye7374-config-db-config
                   key: DB_URL
             - name: SECRETS_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: csye7374-db-secret
+                  name: csye7374-config-db-config
                   key: DB_PASSWD
           resources:
             limits:

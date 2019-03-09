@@ -8,7 +8,7 @@
 
 ##### Dashboard can now be accessed locally via: 
  
-`http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
+(http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/)
 
 
 ### To build the web application using maven, change the directory to /webapp/spring-login-master and run the following command:

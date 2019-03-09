@@ -1,12 +1,12 @@
 ---
 #roles/teardown/tasks
 
-  - name: Detach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+  - name: Detach ElasticLoadBalancingFullAccess policy to the role of our master nodes
     shell: 'aws iam detach-role-policy --role-name "masters.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"'
 
-  - name: Detach CloudWatchFullAccess Policy to the role of our worker nodes
+  - name: Detach CloudWatchFullAccess policy to the role of our worker nodes
     shell: 'aws iam detach-role-policy --role-name "nodes.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/CloudWatchFullAccess"'
 
-  - name: delete the cluster
+  - name: Delete the cluster
     shell: "kops delete cluster --name {{clusterName}} --state {{state}} --yes"
 ...

@@ -39,7 +39,7 @@
   # Finally create the RDS in one of the closeZone of our worker nodes
   # subnet group contains all subnets which include our master and worker nodes
   # Security group is the same group as that of our worker nodes
-  - name: Create RDS Instance
+  - name: Create rds instance
     rds:
       command:  create
       instance_name:  "{{rdsInstanceName}}"
@@ -60,7 +60,7 @@
       wait_timeout: 3000
     register: rdskubernetes
 
-  - name: Jinja Template Copy for DB Secret File
+  - name: Jinja template copy for db secret File
     template:
       src: secret-template.yaml
       dest: "{{ playbook_dir }}/../k8s/app/secret.yaml"

@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: csye7374-app-config
-data:
-  s3_bucket: webapp.{{ s3endpoint }}

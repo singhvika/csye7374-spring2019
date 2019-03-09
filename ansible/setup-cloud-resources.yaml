@@ -1,5 +1,5 @@
 ---
-- name: Create Cloud Resources
+- name: Create cloud resources
   hosts: localhost
   roles:
   - resources/common

@@ -1,5 +1,5 @@
 ---
-  - name: Create a Kubernetes Cluster
+  - name: Create kubernetes cluster
     hosts: localhost
     roles:
       - kops/common

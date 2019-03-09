@@ -1,5 +1,5 @@
 ---
-  - name: install sample file
+  - name: Teardown the cluster
     hosts: localhost
     roles:
       - kops/common

@@ -1,5 +1,5 @@
 ---
-- name: Delete Cloud Resources
+- name: Delete cloud resources
   hosts: localhost
   roles:
   - resources/common

@@ -23,7 +23,6 @@
 		<start-class>com.cloud.LoginApplication</start-class>
 		<maven.test.skip>true</maven.test.skip>
 	</properties>
-	
 
 	<dependencies>
 		<dependency>
@@ -88,13 +87,20 @@
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
 		</dependency>
+		<!-- Adding Prometheus Client -->
 		<dependency>
-	        <groupId>com.timgroup</groupId>
-	        <artifactId>java-statsd-client</artifactId>
-	        <version>3.0.1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+	        <groupId>io.micrometer</groupId>
+	        <artifactId>micrometer-core</artifactId>
+	    </dependency>
+		<dependency>
+	        <groupId>io.micrometer</groupId>
+	        <artifactId>micrometer-registry-prometheus</artifactId>
 	    </dependency>
 	</dependencies>
-
 
 	<build>
 		<plugins>

@@ -1,5 +1,6 @@
 package com.cloud.controller;
 
+import javax.persistence.EntityListeners;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +21,8 @@ import com.cloud.constants.CommonConstants;
 import com.cloud.model.User;
 import com.cloud.service.UserService;
 
+import io.micrometer.core.instrument.Metrics;
+
 @RestController
 public class UserController {
 
@@ -30,7 +33,7 @@ public class UserController {
     
     //@Autowired
     //private StatsDClient statsDClient;
-
+   
     /**
      * Added the function to get time for authenticated users
      * @return String
@@ -38,6 +41,9 @@ public class UserController {
     @RequestMapping(value={"/time"}, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public String time(){
+    	
+    	final io.micrometer.core.instrument.Counter counter = Metrics.counter("time.count", "type", "order");
+    	counter.increment();
     	    	
     	//statsDClient.incrementCounter("endpoint.time.http.get");
     	logger.info("Get Time");

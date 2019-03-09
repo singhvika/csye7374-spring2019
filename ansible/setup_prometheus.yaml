@@ -1,0 +1,7 @@
+---
+  - name: Create Prometheus and Grafana DashBoards
+    hosts: localhost
+    roles:
+      - kops/setup_prometheus
+
+...

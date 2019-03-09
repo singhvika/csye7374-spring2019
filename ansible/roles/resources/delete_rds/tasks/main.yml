@@ -1,31 +1,19 @@
 ---
-#roles/deploy_pod/tasks
+#resources/delete_rds/tasks
 
-  - name: Jinja Template Copy for ConfigMap File
-    template:
-      src: configmap-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/configmap.yaml"
+  # Delete the rds instance without any snapshot
+  - name: Delete rds instance
+    rds:
+      instance_name:  rdskubernetes
+      command:  delete
+      region: "us-east-1"
+      wait: yes
+      wait_timeout: 3000
 
-  - name: Jinja Template Copy for Load Balancer File
-    template:
-      src: loadbalancer-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
-
-  - name: Jinja Template Copy for Replication Controller File
-    template:
-      src: replication-controller-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/replication-controller.yaml"
-
-  - name: Deploy ConfigMap
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/configmap.yaml"
-
-  - name: Deploy Secret
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/secret.yaml"
-
-  - name: Deploy Load Balancer Service
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
-  
-  - name: Deploy Replication Controller Pod
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/replication-controller.yaml"
-
+  # Delete the rdsSubnetGroup associated with the rds cs_instance
+  - name: Delete the rdsSubnetGroup
+    rds_subnet_group:
+      state: absent
+      name: "{{rdsSubnetGroup}}"
+      region: "us-east-1"
 ...

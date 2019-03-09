@@ -1,31 +1,11 @@
 ---
-#roles/deploy_pod/tasks
+#resources/delete_s3/tasks
 
-  - name: Jinja Template Copy for ConfigMap File
-    template:
-      src: configmap-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/configmap.yaml"
-
-  - name: Jinja Template Copy for Load Balancer File
-    template:
-      src: loadbalancer-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
-
-  - name: Jinja Template Copy for Replication Controller File
-    template:
-      src: replication-controller-template.yaml
-      dest: "{{ playbook_dir }}/../k8s/app/replication-controller.yaml"
-
-  - name: Deploy ConfigMap
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/configmap.yaml"
-
-  - name: Deploy Secret
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/secret.yaml"
-
-  - name: Deploy Load Balancer Service
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
-  
-  - name: Deploy Replication Controller Pod
-    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/replication-controller.yaml"
-
+  # S3 bucket needed for the webapp
+  - name: Delete S3 bucket
+    s3_bucket:
+      name: "{{s3Name}}"
+      state: absent
+      region: "us-east-1"
+      force: yes
 ...

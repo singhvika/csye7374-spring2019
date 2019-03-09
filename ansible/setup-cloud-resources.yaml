@@ -1,5 +1,5 @@
 ---
-- name: Create a Kubernetes Cluster
+- name: Create Cloud Resources
   hosts: localhost
   roles:
   - resources/common

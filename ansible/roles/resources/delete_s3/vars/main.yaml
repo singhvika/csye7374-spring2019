@@ -1,9 +1,5 @@
 ---
-  accountId: "{{ accountId }}"
-  tag: "{{ tag }}"
-  appName: "{{ appName }}"
-  ecr: "{{ ecr }}"
-  containerName: "{{ containerName }}"
-  podName: "{{ podName }}"
-  s3endpoint: "{{ s3endpoint }}"
+#resources/delete_s3/vars
+
+s3Name: "webapp.{{clusterName}}"
 ...

@@ -1,0 +1,9 @@
+---
+#resources/create_rds/vars
+
+rdsSubnetGroup: "subnetGroup-rds-{{clusterName}}"
+rdsUsername: "{{dbUser}}"
+rdsPassword: "{{dbPassword}}"
+rdsDbName: "{{dbName}}"
+rdsInstanceName: "rdskubernetes"
+...

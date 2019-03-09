@@ -1,0 +1,5 @@
+---
+#resources/delete_s3/vars
+
+s3Name: "webapp.{{clusterName}}"
+...

@@ -1,0 +1,19 @@
+---
+#resources/delete_rds/tasks
+
+  # Delete the rds instance without any snapshot
+  - name: Delete rds instance
+    rds:
+      instance_name:  rdskubernetes
+      command:  delete
+      region: "us-east-1"
+      wait: yes
+      wait_timeout: 3000
+
+  # Delete the rdsSubnetGroup associated with the rds cs_instance
+  - name: Delete the rds-subnet-group
+    rds_subnet_group:
+      state: absent
+      name: "{{rdsSubnetGroup}}"
+      region: "us-east-1"
+...

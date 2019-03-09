@@ -14,5 +14,7 @@
 ### Log Files ###
 *.gz
 
-## Secret file
+### Secret file ###
 k8s/app/secret.yaml
+
+*.DS_Store

@@ -43,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         		.antMatchers("/reset*").permitAll()
         		.antMatchers("/ping").permitAll()
         		.antMatchers("/healthcheck").permitAll()
+        		.antMatchers("/actuator/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()

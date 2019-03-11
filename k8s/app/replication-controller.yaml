@@ -11,22 +11,13 @@ spec:
     app: cloud-app
   template:
     metadata:
-<<<<<<< HEAD
-      name: csye7374pod1
-=======
       name: cloud-pod
->>>>>>> fdeb60234ac8226f16b071fe13118c37e16f0a6a
       labels:
         app: cloud-app
     spec:
       containers:
-<<<<<<< HEAD
-        - name: csye7374container
-          image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:csye7374image1
-=======
         - name: cloud-container
           image: 727992775278.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest7
->>>>>>> fdeb60234ac8226f16b071fe13118c37e16f0a6a
           ports:
             - containerPort: 8080
               protocol: TCP

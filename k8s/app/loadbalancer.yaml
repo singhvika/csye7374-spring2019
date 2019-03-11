@@ -10,10 +10,6 @@ spec:
     - port: 80
       targetPort: 8080
   selector:
-<<<<<<< HEAD
-    app: csye7374webapp
-=======
     app: cloud-app
->>>>>>> fdeb60234ac8226f16b071fe13118c37e16f0a6a
   type: LoadBalancer
 ...

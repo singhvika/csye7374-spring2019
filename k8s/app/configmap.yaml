@@ -3,8 +3,5 @@ kind: ConfigMap
 metadata:
   name: csye7374-app-s3-configmap
 data:
-<<<<<<< HEAD
-  s3_bucket: webapp.maruu.k8s.csye6225-fall2018-maruu.me
-=======
   s3_bucket: webapp.codereview1.k8s.keskarc.me
->>>>>>> fdeb60234ac8226f16b071fe13118c37e16f0a6a
+

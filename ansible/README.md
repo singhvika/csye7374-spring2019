@@ -58,6 +58,10 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 
 `ansible-playbook setup_grafana.yaml --tags "provision"`
 
+## Get your 'admin' user password by running:
+
+`kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo`
+
 
 ### To teardown the kubernetes Cloud Resources and Cluster, use following command:
 

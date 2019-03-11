@@ -2,6 +2,6 @@
   - name: Create Prometheus DashBoard
     hosts: localhost
     roles:
-      - kops/setup_prometheus
+      - kops/prometheus
 
 ...

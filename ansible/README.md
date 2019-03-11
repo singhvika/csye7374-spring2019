@@ -35,7 +35,7 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 
 ### To deploy the containers with docker image using pods, use the following command:
 
-`ansible-playbook app-deployment.yaml --extra-vars "clusterName=cluster-name tag=image-tag containerName=container-name appName=app-name podName=pod-name ecr=ecr-name`
+`ansible-playbook app-deployment.yaml --extra-vars "clusterName=cluster-name tag=image-tag containerName=container-name appName=app-name podName=pod-name ecr=ecr-name"`
 
 
 ### To teardown cloud resources:

@@ -1,0 +1,12 @@
+prometheus:
+  service:
+    type: NodePort
+
+grafana:
+  service:
+    type: NodePort
+  auth:
+    anonymous:
+      enabled: "false"
+  adminUser: "grafana"
+  adminPassword: "pass1234"

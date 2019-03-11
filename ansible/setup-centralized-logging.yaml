@@ -1,0 +1,8 @@
+---
+- name: Setup centralized logging
+  hosts: localhost
+  roles:
+  - kops/common
+  - kops/setup_helm
+  - kops/setup_fluentd
+...

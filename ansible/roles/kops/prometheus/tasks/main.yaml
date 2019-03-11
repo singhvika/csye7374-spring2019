@@ -1,0 +1,18 @@
+---
+#roles/setup_prometheus/tasks
+
+#All Setup Tasks:
+  - name: Setup Prometheus Dashboard
+    shell: helm install --name prometheus stable/prometheus
+    
+  - name: sleep for 60 seconds and allow Pods to run
+    wait_for: timeout=60
+    delegate_to: localhost
+
+  - name: Exporting pod name as env variable
+    shell: kubectl get pods --namespace default -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}"
+    register: pod_name
+
+  - name: Port Forwarding Prometheus with our Pods to 9090
+    shell: kubectl --namespace default port-forward {{ pod_name.stdout }} 9090
+...

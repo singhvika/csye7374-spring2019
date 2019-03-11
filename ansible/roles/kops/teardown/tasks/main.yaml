@@ -1,6 +1,0 @@
----
-#roles/teardown/tasks
-
-- name: delete the cluster
-  shell: "kops delete cluster --name {{clusterName}} --state {{state}} --yes"
-...

@@ -1,0 +1,8 @@
+---
+  clusterName: "{{clusterName}}"
+  tag: "{{tag}}"
+  appName: "{{appName}}"
+  ecr: "{{ecr}}"
+  containerName: "{{containerName}}"
+  podName: "{{podName}}"
+...

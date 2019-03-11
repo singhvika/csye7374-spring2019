@@ -4,20 +4,29 @@ kind: ReplicationController
 metadata:
   name: cloudapp-replica-controller
   labels:
-    app: csye7374webapp
+    app: cloud-app
 spec:
   replicas: 3
   selector:
-    app: csye7374webapp
+    app: cloud-app
   template:
     metadata:
+<<<<<<< HEAD
       name: csye7374pod1
+=======
+      name: cloud-pod
+>>>>>>> fdeb60234ac8226f16b071fe13118c37e16f0a6a
       labels:
-        app: csye7374webapp
+        app: cloud-app
     spec:
       containers:
+<<<<<<< HEAD
         - name: csye7374container
           image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:csye7374image1
+=======
+        - name: cloud-container
+          image: 727992775278.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest7
+>>>>>>> fdeb60234ac8226f16b071fe13118c37e16f0a6a
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -26,33 +35,33 @@ spec:
               path: /healthcheck
               port: 8080
             initialDelaySeconds: 10
-            periodSeconds: 10
+            periodSeconds: 100
           readinessProbe:
             httpGet:
               path: /healthcheck
               port: 8080
             initialDelaySeconds: 10
-            periodSeconds: 10
+            periodSeconds: 100
           env:
             - name: SECRETS_S3_BUCKETNAME
               valueFrom:
                 configMapKeyRef:
-                  name: csye7374-app-config
+                  name: csye7374-app-s3-configmap
                   key: s3_bucket
             - name: SECRETS_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: csye7374-config-db-config
+                  name: csye7374-db-secret
                   key: DB_USER
             - name: SECRETS_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: csye7374-config-db-config
+                  name: csye7374-db-secret
                   key: DB_URL
             - name: SECRETS_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: csye7374-config-db-config
+                  name: csye7374-db-secret
                   key: DB_PASSWD
           resources:
             limits:

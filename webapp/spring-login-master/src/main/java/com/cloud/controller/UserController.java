@@ -20,6 +20,10 @@ import com.cloud.constants.CommonConstants;
 import com.cloud.model.User;
 import com.cloud.service.UserService;
 
+import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
+
 @RestController
 public class UserController {
 
@@ -35,10 +39,13 @@ public class UserController {
      * Added the function to get time for authenticated users
      * @return String
      */
+    @Timed(value = "csye7374.api.time")
     @RequestMapping(value={"/time"}, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public String time(){
-    	    	
+    	
+    	//Counter counter = Metrics.counter("csye7374.api.time", "type", "time");
+    	//counter.increment();
     	//statsDClient.incrementCounter("endpoint.time.http.get");
     	logger.info("Get Time");
     	return userService.getTime();
@@ -48,10 +55,14 @@ public class UserController {
      * Added the to register the users and also check is the user is already present
      * @return String
      */
+    @Timed(value = "csye7374.api.user.register")
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     @ResponseBody
     public String createNewUser(@RequestBody User user, BindingResult bindingResult) {
 
+    	//Counter counter = Metrics.counter("csye7374.api.user.register", "type", "user.register");
+    	//counter.increment();
+    	
    	    //statsDClient.incrementCounter("endpoint.user.register.http.post");
         logger.info("Create New User - Start");
 

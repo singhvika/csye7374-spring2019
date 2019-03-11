@@ -59,7 +59,7 @@
         state: present
         message: Updated by ansible
         overwrite: yes
-        path: "{{ playbook_dir }}/roles/kops/provision_grafana/dashboard.json"
+        path: "{{ playbook_dir }}/roles/kops/grafana/dashboard.json"
     tags:
         - provision
 ...

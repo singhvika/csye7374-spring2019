@@ -8,6 +8,7 @@ metadata:
 spec:
   ports:
     - port: 80
+      name: lb
       targetPort: 8080
   selector:
     app: {{ appName }}

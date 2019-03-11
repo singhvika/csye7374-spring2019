@@ -34,13 +34,24 @@
 `ansible-playbook pod-deployment.yaml --extra-vars "accountId=aws-account-id tag=image-tag containerName=container-name appName=app-name podName=pod-name ecr=ecr-name s3endpoint=s3-bucket-endpoint"`
 
 
-### To run the kubernetes cluster teardown playbook, use following command:
-
-`ansible-playbook k8s-teardown.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`
-
-
 ##### Make REST calls to your application by creating a proxy
 
 `kubectl port-forward csye7374 8888:8080`
 
 `curl http://localhost:8888`
+
+
+#### Setup Monitoring using Prometheus and Grafana 
+
+`ansible-playbook setup_prometheus.yaml`
+
+`ansible-playbook setup_grafana.yaml --tags "setup"`
+
+`ansible-playbook setup_grafana.yaml --tags "provision"`
+
+
+### To teardown the kubernetes Cloud Resources and Cluster, use following command:
+
+`ansible-playbook teardown-cloud-resources.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`
+
+`ansible-playbook k8s-teardown.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`

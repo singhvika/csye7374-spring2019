@@ -11,13 +11,13 @@ spec:
     app: csye7374webapp
   template:
     metadata:
-      name: latestpod3
+      name: csye7374pod1
       labels:
         app: csye7374webapp
     spec:
       containers:
         - name: csye7374container
-          image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:latestimage3
+          image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:csye7374image1
           ports:
             - containerPort: 8080
               protocol: TCP

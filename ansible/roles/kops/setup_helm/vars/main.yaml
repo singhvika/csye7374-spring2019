@@ -1,0 +1,5 @@
+---
+#roles/setup_helm/vars
+
+  applicationName: "{{ applicationName }}"
+...

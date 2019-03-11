@@ -1,0 +1,11 @@
+---
+#resources/delete_s3/tasks
+
+  # S3 bucket needed for the webapp
+  - name: Delete S3 bucket
+    s3_bucket:
+      name: "{{s3Name}}"
+      state: absent
+      region: "us-east-1"
+      force: yes
+...

@@ -1,0 +1,65 @@
+---
+#roles/setup_grafana/tasks
+
+#All Setup Tasks:
+  - name: Setup Grafana Dashboard
+    shell: helm install -f values_grafana.yaml --name grafana stable/grafana
+    tags:
+        - setup
+
+  - name: Sleep for 60 seconds and allowing Pods to run
+    wait_for: timeout=60
+    delegate_to: localhost
+    tags:
+        - setup
+
+  - name: Exporting pod name as env variable
+    shell: kubectl get pods --namespace default -l "app=grafana,release=grafana" -o jsonpath="{.items[0].metadata.name}"
+    register: pod_name
+    tags:
+        - setup
+
+  - name: Port Forwarding Grafana with our Pods to 3000
+    shell: kubectl --namespace default port-forward {{ pod_name.stdout }} 3000
+    tags:
+        - setup
+
+#All Provision Tasks:
+  - name: Get your 'admin' user password
+    shell: kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+    register: grafana_dashboard_password
+    tags:
+        - provision
+
+  - name: Get your 'Prometheus Server' Pod's IP
+    shell: kubectl describe pods --namespace default -l "app=prometheus,component=server" | grep IP | sed -E 's/IP:[[:space:]]+//'
+    register: prometheus_server_IP
+    tags:
+        - provision
+
+  - name: Create Prometheus datasource in Grafana
+    grafana_datasource:
+        name: "{{ item.name }}"
+        grafana_url: "{{ grafana_url }}"
+        grafana_user: "{{ grafana_user }}"
+        grafana_password: "{{ grafana_dashboard_password.stdout }}"
+        ds_type: "{{ item.ds_type }}"
+        url: "http://{{ prometheus_server_IP.stdout }}:9090"
+        database: "{{ item.name }}"
+        state: present
+    with_items: "{{ data_source }}"
+    tags:
+        - provision
+
+  - name: Import Grafana dashboard 'dashboard.json'
+    grafana_dashboard:
+        grafana_url: "{{ grafana_url }}"
+        grafana_password: "{{ grafana_dashboard_password.stdout }}"
+        grafana_user: "{{ grafana_user }}"
+        state: present
+        message: Updated by ansible
+        overwrite: yes
+        path: "{{ playbook_dir }}/roles/kops/grafana/dashboard.json"
+    tags:
+        - provision
+...

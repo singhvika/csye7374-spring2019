@@ -1,0 +1,36 @@
+---
+#resources/create_s3/tasks
+
+  # S3 bucket needed for the webapp
+  - name: Create S3 bucket
+    s3_bucket:
+      name: "{{s3Name}}"
+      state: present
+      region: us-east-1
+      tags:
+        identifier: "webapp.{{clusterName}}"
+        ClusterName: "{{clusterName}}"
+
+  # Our EC2 should have the permission to access the S3 bucket. So first create the policy document which grants access to the s3 bucket we created above
+  - name: Create S3 access policy document
+    copy:
+      content: '{"Version": "2012-10-17","Statement": [{"Sid": "ListObjectsInBucket","Effect": "Allow","Action": ["s3:ListBucket"],"Resource": "*"},{"Sid": "AllObjectActions","Effect": "Allow","Action": "s3:*Object","Resource": "*"}]}'
+      dest: policy.json
+
+  # Create the policy from the policy document created above, then attach it to the role which is attached to our EC2 instances
+  # thereby granting our EC2 instances access to the S3 bucket
+  # This is an inline policy, not a managed policy
+  - name: Create policy from the policy.json documents and attach to the role
+    iam_policy:
+      iam_type: role
+      iam_name: "nodes.{{clusterName}}"
+      policy_name: s3Access-policy-{{clusterName}}
+      state: present
+      policy_document: policy.json
+
+  # Delete the policy.json policy document
+  - name: Delete file in a remote server
+    file:
+      path: policy.json
+      state: absent
+...

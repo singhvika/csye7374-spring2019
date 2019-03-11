@@ -1,0 +1,5 @@
+---
+#resources/delete_rds/vars
+
+rdsSubnetGroup: "subnetGroup-rds-{{clusterName}}"
+...

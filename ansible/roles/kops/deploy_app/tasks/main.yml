@@ -1,0 +1,34 @@
+---
+#roles/deploy_pod/tasks
+
+  - name: Get aws account id
+    shell: "aws sts get-caller-identity --output text --query 'Account'"
+    register: accountId
+
+  - name: Jinja template copy for configmap file
+    template:
+      src: configmap-template.yaml
+      dest: "{{ playbook_dir }}/../k8s/app/configmap.yaml"
+
+  - name: Jinja template copy for load balancer file
+    template:
+      src: loadbalancer-template.yaml
+      dest: "{{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
+
+  - name: Jinja template copy for replication controller File
+    template:
+      src: replication-controller-template.yaml
+      dest: "{{ playbook_dir }}/../k8s/app/replication-controller.yaml"
+
+  - name: Deploy configmap
+    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/configmap.yaml"
+
+  - name: Deploy secret
+    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/secret.yaml"
+
+  - name: Deploy load balancer service
+    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/loadbalancer.yaml"
+  
+  - name: Deploy replication controller
+    shell: "kubectl apply -f {{ playbook_dir }}/../k8s/app/replication-controller.yaml"
+...

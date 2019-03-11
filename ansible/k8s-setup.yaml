@@ -1,8 +1,8 @@
 ---
-  - name: Create a Kubernetes Cluster
+  - name: Create kubernetes cluster
     hosts: localhost
     roles:
       - kops/common
-      - kops/setup
-      - kops/dashboard
+      - kops/setup_cluster
+      - kops/deploy_dashboard
 ...

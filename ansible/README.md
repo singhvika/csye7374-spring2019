@@ -8,7 +8,7 @@
 
 ##### Dashboard can now be accessed locally via: 
  
-`kubectl proxy at http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/.`
+http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
 
 ### To build the web application using maven, change the directory to /webapp/spring-login-master and run the following command:
@@ -18,25 +18,29 @@
 
 ### To build and push the docker images to ECR, use the following command:
 
-`ansible-playbook docker-push-image.yaml --extra-vars "applicationName=application-name tag=image-tag ecr=ecr-name accountId=aws-account-id”`
+`ansible-playbook docker-push-image.yaml --extra-vars "applicationName=application-name tag=image-tag ecr=ecr-name"`
+
 
 ### To Setup all the Cloud Resources, You need you install boto3 and botocore on your machine.
+
 `pip install boto3`
 
 `pip install botocore` 
 
+
 #### And then use: 
 
-`ansible-playbook setup-cloud-resources.yaml --extra-vars "clusterName=cluster-name"`
+`ansible-playbook setup-cloud-resources.yaml --extra-vars "clusterName=cluster-name dbName=db-name dbUser=db-user dbPassword=db-password"`
+
 
 ### To deploy the containers with docker image using pods, use the following command:
 
-`ansible-playbook pod-deployment.yaml --extra-vars "accountId=aws-account-id tag=image-tag containerName=container-name appName=app-name podName=pod-name ecr=ecr-name s3endpoint=s3-bucket-endpoint"`
+`ansible-playbook app-deployment.yaml --extra-vars "clusterName=cluster-name tag=image-tag containerName=container-name appName=app-name podName=pod-name ecr=ecr-name"`
 
 
-### To run the kubernetes cluster teardown playbook, use following command:
+### To teardown cloud resources:
 
-`ansible-playbook k8s-teardown.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`
+`ansible-playbook teardown-cloud-resources.yaml --extra-vars "clusterName=cluster-name"`
 
 
 ##### Make REST calls to your application by creating a proxy
@@ -44,3 +48,23 @@
 `kubectl port-forward csye7374 8888:8080`
 
 `curl http://localhost:8888`
+
+
+#### Setup Monitoring using Prometheus and Grafana 
+
+`ansible-playbook setup_prometheus.yaml`
+
+`ansible-playbook setup_grafana.yaml --tags "setup"`
+
+`ansible-playbook setup_grafana.yaml --tags "provision"`
+
+## Get your 'admin' user password by running:
+
+`kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo`
+
+
+### To teardown the kubernetes Cloud Resources and Cluster, use following command:
+
+`ansible-playbook teardown-cloud-resources.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`
+
+`ansible-playbook k8s-teardown.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`

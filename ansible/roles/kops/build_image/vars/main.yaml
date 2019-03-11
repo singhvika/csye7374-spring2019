@@ -1,3 +1,5 @@
 ---
+#roles/build_image/vars
+
   applicationName: "{{ applicationName }}"
 ...

@@ -43,13 +43,28 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 `ansible-playbook teardown-cloud-resources.yaml --extra-vars "clusterName=cluster-name"`
 
 
-### To run the kubernetes cluster teardown playbook, use following command:
-
-`ansible-playbook k8s-teardown.yaml --extra-vars "clusterName=cluster-name stateStore=state-store-name"`
-
-
 ##### Make REST calls to your application by creating a proxy
 
 `kubectl port-forward csye7374 8888:8080`
 
 `curl http://localhost:8888`
+
+
+#### Setup Monitoring using Prometheus and Grafana 
+
+`ansible-playbook setup_prometheus.yaml`
+
+`ansible-playbook setup_grafana.yaml --tags "setup"`
+
+`ansible-playbook setup_grafana.yaml --tags "provision"`
+
+## Get your 'admin' user password by running:
+
+`kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo`
+
+
+### To teardown the kubernetes Cloud Resources and Cluster, use following command:
+
+`ansible-playbook teardown-cloud-resources.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`
+
+`ansible-playbook k8s-teardown.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`

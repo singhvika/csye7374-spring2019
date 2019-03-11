@@ -1,0 +1,14 @@
+---
+
+#For Provision Tasks
+grafana_url: "http://localhost:3000"
+grafana_user: "{{ grafana_dashboard_username }}"
+grafana_password: "{{  grafana_dashboard_password }}"
+org_id: "1"
+
+#For Provision Tasks
+data_source:
+  - name: DS_PROMETHEUS
+    ds_type: "prometheus"
+    url: "http://{{ prometheus_server_IP.stdout }}:9090"
+...

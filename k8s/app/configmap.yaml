@@ -4,3 +4,4 @@ metadata:
   name: csye7374-app-s3-configmap
 data:
   s3_bucket: webapp.codereview1.k8s.keskarc.me
+

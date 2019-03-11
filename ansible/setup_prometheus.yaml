@@ -1,0 +1,7 @@
+---
+  - name: Create Prometheus DashBoard
+    hosts: localhost
+    roles:
+      - kops/prometheus
+
+...

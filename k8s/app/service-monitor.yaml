@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kube-prometheus-app-monitor
+  labels:
+    #chinmay: keskar
+    prometheus: kube-prometheus
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: helloworld
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: lb
+    path: /actuator/prometheus
+    interval: 10s
+...

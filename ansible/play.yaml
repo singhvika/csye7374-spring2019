@@ -1,0 +1,14 @@
+---
+  - name: Playbook
+    hosts: localhost
+    tasks:
+      - name: get ip
+        shell: kubectl get services -n default -o json | jq -r -c ".items[] | select(.spec.selector.app==\"cloudappm\") | .spec.clusterIP"
+        register: ip
+      
+      - name: convert
+        vars: 
+          ipList: ["{{ip.stdout}}"]
+        debug:
+          msg: "IPLIST: {{ipList}}"
+...

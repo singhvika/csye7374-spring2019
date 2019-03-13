@@ -2,8 +2,28 @@
 #roles/setup_prometheus/tasks
 
 #All Setup Tasks:
+  - name: Get the cluster IP of the load balancer
+    shell: kubectl get services -n default -o json | jq -r -c ".items[] | select(.spec.selector.app==\"{{appName}}\") | .spec.clusterIP"
+    register: ip
+
+  - name: Delete old values.yaml for prometheus
+    file:
+      path: "{{playbook_dir}}/values_prometheus.yaml"
+      state:  absent
+
+  - name: Copy template values.yaml
+    copy:
+      src:  "{{playbook_dir}}/roles/kops/prometheus/templates/values_prometheus_template.yaml"
+      dest: "{{playbook_dir}}/values_prometheus.yaml"
+
+  - name: Generate a valid values.yaml for prometheus
+    replace: 
+      path: "{{playbook_dir}}/values_prometheus.yaml"
+      regexp: 'app_lb_internal_ips'
+      replace: "['{{ip.stdout}}']"
+
   - name: Setup Prometheus Dashboard
-    shell: helm install --name prometheus stable/prometheus
+    shell: helm install --name prometheus stable/prometheus -f values_prometheus.yaml
     
   - name: sleep for 60 seconds and allow Pods to run
     wait_for: timeout=60

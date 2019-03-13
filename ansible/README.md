@@ -28,6 +28,9 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 `pip install botocore` 
 
 
+
+
+
 #### And then use: 
 
 `ansible-playbook setup-cloud-resources.yaml --extra-vars "clusterName=cluster-name dbName=db-name dbUser=db-user dbPassword=db-password"`
@@ -52,7 +55,7 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 
 #### Setup Monitoring using Prometheus and Grafana 
 
-`ansible-playbook setup_prometheus.yaml`
+`ansible-playbook setup_prometheus.yaml --extra-vars "appName=<your app name>"`
 
 `ansible-playbook setup_grafana.yaml --tags "setup"`
 

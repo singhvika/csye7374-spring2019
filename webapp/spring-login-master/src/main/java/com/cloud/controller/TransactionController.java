@@ -488,6 +488,12 @@ public class TransactionController {
 		}
 	}
 	
+	/**
+	 * Added to check if the application can connect to RDS and S3 bucket
+	 * @param response
+	 * @throws Exception
+	 */
+	@Timed(value = "csye7374.api.healthcheck")
 	@RequestMapping(value={"/healthcheck"}, method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void healthCheck(HttpServletResponse response) throws Exception {

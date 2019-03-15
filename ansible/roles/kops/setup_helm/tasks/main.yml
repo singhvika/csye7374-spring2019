@@ -7,7 +7,7 @@
     shell: "kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceaccount=kube-system:tiller"
 
   - name: Initialize Helm
-    shell: "helm init --service-account tiller"
+    shell: "helm init --service-account tiller --wait"
 
   - name: Deploy Tiller
     shell: "kubectl patch deploy --namespace kube-system tiller-deploy -p '{\"spec\":{\"template\":{\"spec\":{\"serviceAccount\":\"tiller\"}}}}'"

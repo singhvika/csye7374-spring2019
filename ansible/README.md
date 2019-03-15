@@ -28,9 +28,6 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 `pip install botocore` 
 
 
-
-
-
 #### And then use: 
 
 `ansible-playbook setup-cloud-resources.yaml --extra-vars "clusterName=cluster-name dbName=db-name dbUser=db-user dbPassword=db-password"`
@@ -39,6 +36,11 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 ### To deploy the containers with docker image using pods, use the following command:
 
 `ansible-playbook app-deployment.yaml --extra-vars "clusterName=cluster-name tag=image-tag containerName=container-name appName=app-name podName=pod-name ecr=ecr-name"`
+
+
+### To setup centralized logging:
+
+`ansible-playbook setup-centralized-logging.yaml --extra-vars "clusterName=cluster-name"`
 
 
 ### To teardown cloud resources:
@@ -55,11 +57,12 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 
 #### Setup Monitoring using Prometheus and Grafana 
 
-`ansible-playbook setup_prometheus.yaml --extra-vars "appName=<your app name>"`
+`ansible-playbook setup_prometheus.yaml --extra-vars "appName=app-name"`
 
 `ansible-playbook setup_grafana.yaml --tags "setup"`
 
 `ansible-playbook setup_grafana.yaml --tags "provision"`
+
 
 ## Get your 'admin' user password by running:
 

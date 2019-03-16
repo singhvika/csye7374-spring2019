@@ -4,10 +4,21 @@
 #All Setup Tasks:
   - name: Setup Prometheus Dashboard
     shell: helm install --name prometheus stable/prometheus
-    
-  - name: sleep for 60 seconds and allow Pods to run
-    wait_for: timeout=60
-    delegate_to: localhost
+
+  - name: Wait until all Prometheus Pods are Ready
+    shell: "kubectl get pods --namespace default -l \"app=prometheus,release=prometheus\" -o jsonpath=\"{.items[{{ item }}].status.conditions[1].status}\""
+    register: status
+    until: status.stdout.find('True')  !=  -1
+    retries: 20
+    delay: 10
+    loop:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
 
   - name: Exporting pod name as env variable
     shell: kubectl get pods --namespace default -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}"

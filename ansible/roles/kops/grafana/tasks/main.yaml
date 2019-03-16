@@ -7,9 +7,12 @@
     tags:
         - setup
 
-  - name: Sleep for 60 seconds and allowing Pods to run
-    wait_for: timeout=60
-    delegate_to: localhost
+  - name: Wait until the Grafana Pod is Ready
+    shell: "kubectl get pods --namespace default -l \"app=grafana,release=grafana\" -o jsonpath=\"{.items[0].status.conditions[1].status}\""
+    register: status
+    until: status.stdout.find('True')  !=  -1
+    retries: 10
+    delay: 10
     tags:
         - setup
 

@@ -11,14 +11,14 @@
     until: status.stdout.find('True')  !=  -1
     retries: 20
     delay: 10
-    loop:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
+    loop: #Looping for all the respective Prometheus Pods to be READY
+        - 0 #prometheus-alertmanage
+        - 1 #prometheus-kube-state-metrics
+        - 2 #prometheus-node-exporter
+        - 3 #prometheus-node-exporter
+        - 4 #prometheus-node-exporter
+        - 5 #prometheus-pushgateway
+        - 6 #prometheus-server
 
   - name: Exporting pod name as env variable
     shell: kubectl get pods --namespace default -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}"

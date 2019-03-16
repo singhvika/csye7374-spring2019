@@ -32,7 +32,7 @@
     retries: 20
     delay: 10
     loop: #Looping for all the respective Prometheus Pods to be READY
-        - 0 #prometheus-alertmanage
+        - 0 #prometheus-alertmanager
         - 1 #prometheus-kube-state-metrics
         - 2 #prometheus-node-exporter
         - 3 #prometheus-node-exporter

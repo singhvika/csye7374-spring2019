@@ -2,6 +2,26 @@
 #roles/setup_prometheus/tasks
 
 #All Setup Tasks:
+  - name: Get the cluster IP of the load balancer
+    shell: kubectl get pods -n default -o json | jq -c -r '.items[] | select  ( .metadata.labels.app=="{{appName}}") | select(.metadata.name="cloudapp-replica-rontroller-*") | .status.podIP +":8080" '
+    register: ip
+
+  - name: Delete old values.yaml for prometheus
+    file:
+      path: "{{playbook_dir}}/values_prometheus.yaml"
+      state:  absent
+
+  - name: Copy template values.yaml
+    copy:
+      src:  "{{playbook_dir}}/roles/kops/prometheus/templates/values_prometheus_template.yaml"
+      dest: "{{playbook_dir}}/values_prometheus.yaml"
+
+  - name: Generate a valid values.yaml for prometheus
+    replace: 
+      path: "{{playbook_dir}}/values_prometheus.yaml"
+      regexp: 'app_lb_internal_ips'
+      replace: "{{ip.stdout.split('\n')}}"
+
   - name: Setup Prometheus Dashboard
     shell: helm install --name prometheus stable/prometheus
 

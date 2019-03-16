@@ -33,6 +33,8 @@ import com.cloud.service.TransactionService;
 import com.cloud.service.UserService;
 import com.cloud.util.Utils;
 
+import io.micrometer.core.annotation.Timed;
+
 @RestController
 public class TransactionController {
 
@@ -58,6 +60,7 @@ public class TransactionController {
 	 * @return
 	 * @throws IOException
 	 */
+	@Timed(value = "csye7374.api.transaction.get")
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
 	@ResponseBody
 	public TransactionWrapper findTransactionsByUserId(HttpServletResponse response) throws IOException {
@@ -93,6 +96,7 @@ public class TransactionController {
 	 * @return String
 	 * @throws IOException
 	 */
+	@Timed(value = "csye7374.api.transaction.post")
 	@RequestMapping(value = "/transaction", method = RequestMethod.POST)
 	@ResponseBody
 	public Status create(@RequestBody Transaction transaction, HttpServletResponse response) throws IOException {
@@ -139,6 +143,7 @@ public class TransactionController {
 	 * @return String
 	 * @throws IOException
 	 */
+	@Timed(value = "csye7374.api.transaction.put")
 	@RequestMapping(value = "/transaction/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Status update(@PathVariable String id, @RequestBody Transaction transaction, HttpServletResponse response)
@@ -184,6 +189,7 @@ public class TransactionController {
 	 * @return
 	 * @throws IOException
 	 */
+	@Timed(value = "csye7374.api.transaction.delete")
 	@RequestMapping(value = "/transaction/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Status delete(@PathVariable String id, HttpServletResponse response) throws IOException {
@@ -225,6 +231,7 @@ public class TransactionController {
 	 * @return
 	 * @throws IOException 
 	 */
+	@Timed(value = "csye7374.api.attachments.get")
 	@RequestMapping(value = "/transaction/{id}/attachments", method = RequestMethod.GET)
 	public AttachmentWrapper getReceipt(@PathVariable String id, HttpServletResponse response) throws IOException {
 
@@ -267,6 +274,7 @@ public class TransactionController {
 	 * @param file
 	 * @return
 	 */
+	@Timed(value = "csye7374.api.attachments.post")
 	@RequestMapping(value = "/transaction/{id}/attachments", method = RequestMethod.POST)
 	public Status uploadReceipt(@PathVariable String id, @RequestPart(value = "file") MultipartFile file) {
 
@@ -317,6 +325,7 @@ public class TransactionController {
 	 * @param file
 	 * @return
 	 */
+	@Timed(value = "csye7374.api.attachments.put")
 	@RequestMapping(value = "/transaction/{id}/attachments/{attachmentId}", method = RequestMethod.PUT)
 	public Status updateReceipt(@PathVariable String id, @PathVariable String attachmentId,
 			@RequestPart(value = "file") MultipartFile file) {
@@ -389,6 +398,7 @@ public class TransactionController {
 	 * @return
 	 * @throws IOException 
 	 */
+	@Timed(value = "csye7374.api.attachments.delete")
 	@RequestMapping(value = "/transaction/{id}/attachments/{attachmentId}", method = RequestMethod.DELETE)
 	public Status deleteAttachment(@PathVariable String id, @PathVariable String attachmentId,
 			HttpServletResponse response) throws IOException {
@@ -478,6 +488,12 @@ public class TransactionController {
 		}
 	}
 	
+	/**
+	 * Added to check if the application can connect to RDS and S3 bucket
+	 * @param response
+	 * @throws Exception
+	 */
+	@Timed(value = "csye7374.api.healthcheck")
 	@RequestMapping(value={"/healthcheck"}, method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void healthCheck(HttpServletResponse response) throws Exception {

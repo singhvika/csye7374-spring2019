@@ -24,4 +24,11 @@
 
   - name: To Watch the status of LoadBalancer Pod of Jenkins,
     debug: msg= "kubectl get svc --namespace default -w jenkins"
+
+
+    #Plugins to be installed in Jenkins:
+    # -GitHub
+    # -Cloudbees build and Push
+    # -Docker
+
 ...

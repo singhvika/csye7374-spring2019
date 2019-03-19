@@ -1,14 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Build image') {
+        stage('Run the webapp') {
             steps {
-                echo 'Starting to build docker image'
-
-                script {
-                    def customImage = docker.build("my-image:${env.BUILD_ID}")
-                    customImage.push()
-                }
+                sh '../webapp/spring-login-master'
+                sh './mvnw clean install'
             }
         }
     }

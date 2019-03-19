@@ -1,0 +1,27 @@
+---
+#roles/jenkins/tasks
+
+  - name: Setup Jenkins on Kubernetes
+    shell: helm install --name jenkins stable/jenkins
+
+  - name: Get your Jenkins 'admin' user password
+    shell: kubectl get secret --namespace default jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode ; echo
+    register: jenkins_admin_password
+
+  - name: Jenkins Admin Password
+    debug: msg= "{{ jenkins_admin_password.stdout }}"
+
+  - name:
+    shell: kubectl get svc --namespace default jenkins --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}"
+    register: SERVICE_IP
+
+  - name: Get the URL for Jenkins Login
+    shell: "echo http://{{ SERVICE_IP.stdout }}:8080/login"
+    register: jenkins_login_url
+
+  - name: Jenkins Login URL (Login when the Jenkins Pod is Ready and Running)
+    debug: msg= "{{ jenkins_login_url.stdout }}"
+
+  - name: To Watch the status of LoadBalancer Pod of Jenkins,
+    debug: msg= "kubectl get svc --namespace default -w jenkins"
+...

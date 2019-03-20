@@ -19,6 +19,7 @@ pipeline {
                 dir('webapp/spring-login-master/'){
                     sh 'pwd'
                     sh 'mvn clean install'
+                    dockerCmd 'build --tag webapp/latest:SNAPSHOT .'
                 }
             }
         }

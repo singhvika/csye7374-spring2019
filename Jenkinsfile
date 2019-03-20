@@ -29,7 +29,7 @@ pipeline {
                     tag: 'csye7374image',
                     ecr: 'csye7374',
                     accountId: '945221634161'
-                    ])
+                    ]
                 )
             }
         }

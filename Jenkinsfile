@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven 3.6.0'
+        maven 'Maven'
         jdk 'jdk8'
     }
     stages {
@@ -17,7 +17,7 @@ pipeline {
         stage('Run the webapp') {
             steps {
                 sh 'cd webapp/spring-login-master/'
-                sh './mvnw clean install'
+                sh 'mvn clean install'
             }
         }
 

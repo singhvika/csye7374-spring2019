@@ -16,8 +16,7 @@ pipeline {
 
         stage('Run the webapp') {
             steps {
-                sh 'pwd'
-                sh 'cd webapp/spring-login-master/'
+                dir('webapp/spring-login-master/')
                 sh 'pwd'
                 sh 'mvn clean install'
             }

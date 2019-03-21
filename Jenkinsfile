@@ -39,9 +39,11 @@ podTemplate(
 
          stage ('Docker build') {
             
-            docker.build('demo')
-            docker.withRegistry('https://945221634161.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
-                docker.image('demo').push('latest')
+            container ('docker-container') {
+                docker.build('demo')
+                docker.withRegistry('https://945221634161.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
+                    docker.image('demo').push('latest')
+                }
             }
          }
     }

@@ -1,38 +1,41 @@
-pipeline {
-    agent any
-    tools {
-        maven 'Maven'
-        jdk 'jdk8'
-    }
-    stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                   echo "PATH = ${PATH}"
-                   echo "M2_HOME = ${M2_HOME}"
-                   '''
-             }
-         }
+podTemplate(
+    label: 'mypod',
+    inheritFrom: 'default',
+    containers: [
+        containerTemplate(
+            name: 'maven-container',
+            image: 'maven:3.6.0-jdk-8-alpine',
+            ttyEnabled: true,
+            command: 'cat'
+        ),
+        containerTemplate(
+            name: 'docker-container',
+            image: 'docker:18.02',
+            ttyEnabled: true,
+            command: 'cat'
+        )
+    ],
+    volumes: [
+        hostPathVolume(
+            hostPath: '/var/run/docker.sock',
+            mountPath: '/var/run/docker.sock'
+        )
+    ]
+) {
+    node('mypod') {
+        // stage('Checkout') {
+        //     checkout scm
+        // }
 
-        stage('Run the webapp') {
-            steps {
-                dir('webapp/spring-login-master/'){
-                    sh 'pwd'
-                    sh 'mvn clean install'
-                }
-                dockerCmd 'build --tag automatingguy/sparktodo:SNAPSHOT .'
-                ansiblePlaybook(
-                    limit: 'localhost',
-                    playbook: '/ansible/docker-push-image.yaml',
-                    extraVars: [
-                    applicationName: 'mywebapp',
-                    tag: 'csye7374image',
-                    ecr: 'csye7374',
-                    accountId: '946899997174'
-                    ])
-                )
-            }
+        stage('Current Working Directory'){
+            sh 'pwd'
         }
 
+        container('docker-container') {
+            stage('Build') {
+                sh 'docker build -t build_testing .'
+            }
+
+        }
     }
 }

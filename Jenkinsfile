@@ -40,9 +40,11 @@ podTemplate(
          stage ('Docker build') {
             
             container ('docker-container') {
-                docker.build('demo')
-                docker.withRegistry('https://945221634161.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
-                    docker.image('demo').push('latest')
+                dir('webapp/spring-login-master/'){
+                    docker.build('demo')
+                    docker.withRegistry('https://945221634161.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
+                        docker.image('demo').push('latest')
+                    }
                 }
             }
          }

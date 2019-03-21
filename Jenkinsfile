@@ -40,7 +40,7 @@ podTemplate(
 
          stage ('Docker') {
             container ('docker-container') {
-                sh "docker build -t cloudApp1:1 ."
+                sh "docker build -t cloudapp1:1 ."
                 
             }
         }

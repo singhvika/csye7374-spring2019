@@ -40,8 +40,11 @@ podTemplate(
 
          stage ('Docker') {
             container ('docker-container') {
-                sh "docker build -t cloudapp1:1 ."
-                
+                sh 'pwd'
+                dir('webapp/spring-login-master/'){
+                    sh 'pwd'
+                    sh "docker build -t cloudapp1:1 ."
+                }
             }
         }
     }

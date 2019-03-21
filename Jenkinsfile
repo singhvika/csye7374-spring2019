@@ -14,12 +14,6 @@ podTemplate(
             ttyEnabled: true,
             command: 'cat'
         )
-    ],
-    volumes: [
-        hostPathVolume(
-            hostPath: '/var/run/docker.sock',
-            mountPath: '/var/run/docker.sock'
-        )
     ]
 ) {
     node('mypod') {
@@ -32,7 +26,6 @@ podTemplate(
             container ('maven-container') {
                 dir('webapp/spring-login-master/'){
                     sh 'pwd'
-                    sh 'ls'
                     sh 'mvn clean install'
                 }
             }
@@ -44,6 +37,7 @@ podTemplate(
                 dir('webapp/spring-login-master/'){
                     sh 'pwd'
                     sh "docker build -t cloudapp1:1 ."
+                    sh "docker push -t cloudapp1:1 ."
                 }
             }
         }

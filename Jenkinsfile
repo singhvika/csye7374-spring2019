@@ -14,6 +14,12 @@ podTemplate(
             ttyEnabled: true,
             command: 'cat'
         )
+    ],
+    volumes: [
+        hostPathVolume(
+            hostPath: '/var/run/docker.sock',
+            mountPath: '/var/run/docker.sock'
+        )
     ]
 ) {
     node('mypod') {
@@ -31,15 +37,12 @@ podTemplate(
             }
          }
 
-         stage ('Docker') {
-            container ('docker-container') {
-                sh 'pwd'
-                dir('webapp/spring-login-master/'){
-                    sh 'pwd'
-                    sh "docker build -t cloudapp1:1 ."
-                    sh "docker push -t cloudapp1:1 ."
-                }
+         stage ('Docker build') {
+            
+            docker.build('demo')
+            docker.withRegistry('https://945221634161.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
+                docker.image('demo').push('latest')
             }
-        }
+         }
     }
 }

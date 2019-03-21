@@ -37,5 +37,12 @@ podTemplate(
                 }
             }
          }
+
+         stage ('Docker') {
+            container ('docker-container') {
+                sh "docker build -t cloudApp1:1 ."
+                
+            }
+        }
     }
 }

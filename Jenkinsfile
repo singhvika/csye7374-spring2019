@@ -23,6 +23,11 @@ podTemplate(
     ]
 ) {
     node('mypod') {
+        
+         stage ('Extract') {
+            checkout scm
+        }
+        
         stage ('Initialize') {
             container ('maven-container') {
                 dir('webapp/spring-login-master/'){

@@ -33,7 +33,9 @@ podTemplate(
 
         container('docker-container') {
             stage('Build') {
-                sh 'docker build -t build_testing .'
+                dir('webapp/spring-login-master/') {
+                    sh 'docker build -t build_testing .'
+                }
             }
 
         }

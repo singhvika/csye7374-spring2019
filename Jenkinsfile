@@ -23,9 +23,9 @@ podTemplate(
     ]
 ) {
     node('mypod') {
-        // stage('Checkout') {
-        //     checkout scm
-        // }
+         stage('Checkout') {
+             checkout scm
+         }
 
         stage('Current Working Directory'){
             sh 'pwd'

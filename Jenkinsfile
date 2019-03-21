@@ -21,7 +21,16 @@ pipeline {
                     sh 'mvn clean install'
                 }
                 dockerCmd 'build --tag automatingguy/sparktodo:SNAPSHOT .'
-              
+                ansiblePlaybook(
+                    limit: 'localhost',
+                    playbook: '/ansible/docker-push-image.yaml',
+                    extraVars: [
+                    applicationName: 'mywebapp',
+                    tag: 'csye7374image',
+                    ecr: 'csye7374',
+                    accountId: '946899997174'
+                    ])
+                )
             }
         }
 

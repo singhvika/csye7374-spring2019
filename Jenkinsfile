@@ -56,24 +56,12 @@ podTemplate(
          }
 
          stage ('Deploy application') {    
-            container ('kubectl-container') {
-                node {
-                    checkout scm
-                    sh 'sudo yum install epel-release'
-                    sh 'sudo yum install ansible'
-                    dir('ansible/'){
-                        ansiblePlaybook(
-                            playbook: 'ansible/k8s-setup.yaml',
-                            extraVars: [
-                            clusterName: 'dcunham.k8s.csye6225-fall2018-dcunham.me',
-                            nodeCount: 3,
-                            nodeSize: 't2.medium',
-                            masterSize: 't2.medium',
-                            stateStore: 'dcunham.k8s.csye6225-fall2018-dcunham.me'
-                        ])
-                    }
-                }
+            
+            checkout scm
+            dir('ansible/'){
+                echo 'Deploying application'
+                sh 'ansible-playbook -i k8s-setup.yaml'
             }
-        }
+         }
     }
 }

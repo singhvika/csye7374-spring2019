@@ -57,7 +57,9 @@ podTemplate(
 
          stage ('Deploy application') {    
             container ('kubectl-container') {
-                sh 'kubectl get pods'
+                dir('ansible/'){
+                    sh 'ansible-playbook k8s-setup.yaml --extra-vars "clusterName=dcunham.k8s.csye6225-fall2018-dcunham.me nodeCount=3 nodeSize=t2.medium masterSize=t2.medium stateStore=dcunham.k8s.csye6225-fall2018-dcunham.me"'
+                }
             }
         }
     }

@@ -9,6 +9,12 @@ podTemplate(
             command: 'cat'
         ),
         containerTemplate(
+            name: 'kubectl-container',
+            image: 'lachlanevenson/k8s-kubectl:v1.13.4',
+            ttyEnabled: true,
+            command: 'cat'
+        ),
+        containerTemplate(
             name: 'docker-container',
             image: 'docker:18.02',
             ttyEnabled: true,
@@ -48,5 +54,11 @@ podTemplate(
                 }
             }
          }
+
+         stage ('Deploy application') {    
+            container ('kubectl-container') {
+                sh 'kubectl get pods'
+            }
+        }
     }
 }

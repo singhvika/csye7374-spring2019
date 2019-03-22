@@ -59,7 +59,7 @@ podTemplate(
             container ('kubectl-container') {
                 node {
                     checkout scm
-                    dir('ansible/'){
+                    dir('/home/jenkins/workspace/Test1/ansible/'){
                         ansiblePlaybook(
                             playbook: 'ansible/k8s-setup.yaml',
                             extraVars: [

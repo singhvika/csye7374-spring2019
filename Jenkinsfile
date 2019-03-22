@@ -57,8 +57,8 @@ podTemplate(
 
          stage ('Deploy application') {    
             container ('kubectl-container') {
-                dir('ansible/'){
-                    node {
+                node {
+                    dir('ansible/'){
                         ansiblePlaybook(
                             playbook: 'ansible/k8s-setup.yaml',
                             extraVars: [

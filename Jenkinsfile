@@ -59,13 +59,8 @@ podTemplate(
             container ('kubectl-container') {
                 ansiblePlaybook( 
                     playbook: 'ansible/k8s-setup.yaml',
-                    extraVars: [
-                    clusterName: 'dcunham.k8s.csye6225-fall2018-dcunham.me',
-                    nodeCount: 3,
-                    nodeSize: 't2.medium',
-                    masterSize: 't2.medium',
-                    stateStore: 'dcunham.k8s.csye6225-fall2018-dcunham.me'
-                ])
+                    extras: '-e clusterName: "dcunham.k8s.csye6225-fall2018-dcunham.me" nodeCount: 3 nodeSize: "t2.medium" masterSize: "t2.medium" stateStore: "dcunham.k8s.csye6225-fall2018-dcunham.me"'
+                    )
             }
         }
     }

@@ -61,7 +61,7 @@ podTemplate(
                     checkout scm
                     sh 'sudo yum install epel-release'
                     sh 'sudo yum install ansible'
-                    dir('/home/jenkins/workspace/Test1/ansible/'){
+                    dir('ansible/'){
                         ansiblePlaybook(
                             playbook: 'ansible/k8s-setup.yaml',
                             extraVars: [

@@ -58,6 +58,7 @@ podTemplate(
          stage ('Deploy application') {    
             container ('kubectl-container') {
                 node {
+                    checkout scm
                     dir('ansible/'){
                         ansiblePlaybook(
                             playbook: 'ansible/k8s-setup.yaml',

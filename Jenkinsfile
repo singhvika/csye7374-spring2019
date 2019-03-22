@@ -60,6 +60,7 @@ podTemplate(
             checkout scm
             dir('ansible/'){
                 echo 'Deploying application'
+                sh 'sudo -s'
                 ansiblePlaybook( 
                     playbook: 'k8s-setup.yaml',
                     extraVars: [

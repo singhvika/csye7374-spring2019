@@ -60,6 +60,7 @@ podTemplate(
             checkout scm
             dir('ansible/'){
                 echo 'Deploying application'
+                sh 'ls'
                 ansiblePlaybook( 
                     playbook: 'k8s-setup.yaml',
                     sudo: true,

@@ -3,16 +3,19 @@ kind: Deployment
 metadata:
   name: cloudapp-replica-controller
   labels:
-    app: cloudappm
+    app: cloudapp
 spec:
-  replicas: 3
+  strategy:
+    type: Recreate
   selector:
-    app: cloudappm
+    matchLabels:
+      app: nginx
+  replicas: 3
   template:
     metadata:
       name: pod1
       labels:
-        app: cloudappm
+        app: cloudapp
     spec:
       containers:
         - name: webapp

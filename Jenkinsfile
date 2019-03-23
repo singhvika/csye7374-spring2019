@@ -60,7 +60,6 @@ podTemplate(
             container ('kubectl-container') {
                 dir('k8s/app/'){
                    sh 'kubectl apply -f configmap.yaml'
-                   sh 'kubectl apply -f secret.yaml'
                    sh 'kubectl apply -f loadbalancer.yaml'
                    sh 'kubectl apply -f deployment.yaml'
                 }

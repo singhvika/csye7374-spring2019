@@ -9,7 +9,7 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: nginx
+      app: cloudapp
   replicas: 3
   template:
     metadata:

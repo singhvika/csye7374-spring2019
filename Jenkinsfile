@@ -57,20 +57,13 @@ podTemplate(
 
          stage ('Deploy application') {    
             
-            checkout scm
-            dir('ansible/'){
-                echo 'Deploying application'
-                sh 'ls'
-                ansiblePlaybook( 
-                    playbook: 'k8s-setup.yaml',
-                    sudo: true,
-                    extraVars: [
-                    clusterName: 'dcunham.k8s.csye6225-fall2018-dcunham.me',
-                    nodeCount: 3,
-                    nodeSize: 't2.medium',
-                    masterSize: 't2.medium',
-                    stateStore: 'dcunham.k8s.csye6225-fall2018-dcunham.me'
-                ])
+            container ('kubectl-container') {
+                dir('k8s/app/'){
+                   sh 'kubectl apply -f configmap.yaml'
+                   sh 'kubectl apply -f secret.yaml'
+                   sh 'kubectl apply -f loadbalancer.yaml'
+                   sh 'kubectl apply -f deployment.yaml'
+                }
             }
          }
     }

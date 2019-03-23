@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: cloudapp-replica-controller
+  labels:
+    app: cloudappm
+spec:
+  minReadySeconds: 5
+  strategy:
+  # indicate which strategy we want for rolling update
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+  replicas: 3
+  selector:
+    app: cloudappm
+  template:
+    metadata:
+      name: pod1
+      labels:
+        app: cloudappm
+    spec:
+      containers:
+        - name: webapp
+          image: 479392477648.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 100
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 100
+          env:
+            - name: SECRETS_S3_BUCKETNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: csye7374-app-s3-configmap
+                  key: s3_bucket
+            - name: SECRETS_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: csye7374-db-secret
+                  key: DB_USER
+            - name: SECRETS_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: csye7374-db-secret
+                  key: DB_URL
+            - name: SECRETS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: csye7374-db-secret
+                  key: DB_PASSWD
+          resources:
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+...
+        - containerPort: 80

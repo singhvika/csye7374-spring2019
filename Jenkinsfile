@@ -62,7 +62,7 @@ podTemplate(
                 echo 'Deploying application'
                 ansiblePlaybook( 
                     playbook: 'k8s-setup.yaml',
-                    sudo: '-s',
+                    sudo: true,
                     extraVars: [
                     clusterName: 'dcunham.k8s.csye6225-fall2018-dcunham.me',
                     nodeCount: 3,

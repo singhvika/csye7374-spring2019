@@ -5,13 +5,6 @@ metadata:
   labels:
     app: cloudappm
 spec:
-  minReadySeconds: 5
-  strategy:
-  # indicate which strategy we want for rolling update
-  type: RollingUpdate
-  rollingUpdate:
-    maxSurge: 1
-    maxUnavailable: 1
   replicas: 3
   selector:
     app: cloudappm

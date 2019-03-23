@@ -1,12 +1,15 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: cloudapp-replica-controller
+  name: cloudapp-deployment
   labels:
     app: cloudapp
 spec:
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
   selector:
     matchLabels:
       app: cloudapp

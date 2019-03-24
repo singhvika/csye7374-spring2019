@@ -48,7 +48,7 @@ podTemplate(
             container ('docker-container') {
                 dir('webapp/spring-login-master/'){
                     docker.build('csye7374')
-                    docker.withRegistry('https://945221634161.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:ecr-credentials') {
+                    docker.withRegistry('https://479392477648.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:ecr-credentials') {
                         docker.image('csye7374').push('latest15')
                     }
                 }

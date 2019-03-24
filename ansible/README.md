@@ -37,7 +37,7 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
   
   `ansible-playbook app-deployment.yaml --extra-vars "clusterName=cluster-name tag=image-tag containerName=container-name appName=app-name podName=pod-name ecr=ecr-name"`
   
-### Triggering deployment using Jenkins CI-CD Pipeline
+### Triggering deployment using Jenkins Continuous Deployment Pipeline
 
 - Refer to `README.md` under `/roles/jenkins`
 ---

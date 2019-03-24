@@ -1,5 +1,4 @@
-# CI-CD Pipeline with Jenkins
-
+# Continuous Deployment Pipeline with Jenkins
 
 ## Requirements:
 ---

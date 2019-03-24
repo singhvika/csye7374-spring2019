@@ -1,7 +1,7 @@
 # Continuous Deployment Pipeline with Jenkins
 
-## Requirements:
----
+ ## Requirements
+ 
  First off, we reuqire your Kubernetes Cluster and AWS Cloud Resources to be up.
  
  The Project we have prepared here, also expects two secrets (files) to be present:
@@ -33,6 +33,9 @@
  - Configures the Job for Jenkins.
  - Mounts volume for secrets onto Jankins Agent.
   
+ #### Delete the Jenkins Release created using `helm chart`
+ 
+ Manually run `helm del --purge RELASE_NAME` and you can run the playbook again to setup. 
   
  
  

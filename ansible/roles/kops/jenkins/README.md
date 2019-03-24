@@ -7,7 +7,9 @@
  The Project we have prepared here, also expects two secrets (files) to be present:
  
  1. `var/deploy/ecrets/github-secret-user`
+    - To do so, run `kubectl create secret generic github-secret-user --from-literal=github-secret-user=YOUR_GITHUB_USERNAME --namespace default`
  2. `var/deploy/ecrets/github-secret-password`
+    - To do so, run `kubectl create secret generic github-secret-password --from-literal=github-secret-password=YOUR_GITHUB_PASSWORD --namespace default`
  
  The first one is a secret for your github username and second one is for your github password to github repositories.
  

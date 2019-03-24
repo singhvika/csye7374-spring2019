@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudapp-deployment
+  labels:
+    app: cloudapp
+spec:
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: cloudapp
+  replicas: 3
+  template:
+    metadata:
+      name: pod1
+      labels:
+        app: cloudapp
+    spec:
+      containers:
+        - name: webapp
+          image: 945221634161.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 100
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 100
+          env:
+            - name: SECRETS_S3_BUCKETNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: csye7374-app-s3-configmap
+                  key: s3_bucket
+            - name: SECRETS_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: csye7374-db-secret
+                  key: DB_USER
+            - name: SECRETS_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: csye7374-db-secret
+                  key: DB_URL
+            - name: SECRETS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: csye7374-db-secret
+                  key: DB_PASSWD
+          resources:
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+...
+        - containerPort: 80

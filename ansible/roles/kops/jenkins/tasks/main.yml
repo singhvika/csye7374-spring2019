@@ -2,33 +2,53 @@
 #roles/jenkins/tasks
 
   - name: Setup Jenkins on Kubernetes
-    shell: helm install --name jenkins stable/jenkins
+    shell: helm install -f values_jenkins.yaml --name jenkins stable/jenkins
+    tags:
+        - setup
+
+  - name: Wait until the Jenkins Master Pod is Ready
+    shell: "kubectl get pods --namespace default -l \"app=jenkins,release=jenkins\" -o jsonpath=\"{.items[0].status.conditions[1].status}\""
+    register: status
+    until: status.stdout.find('True')  !=  -1
+    retries: 15
+    delay: 10
+    tags:
+        - setup
 
   - name: Get your Jenkins 'admin' user password
     shell: kubectl get secret --namespace default jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode ; echo
     register: jenkins_admin_password
+    tags:
+        - setup
 
   - name: Jenkins Admin Password
-    debug: msg= "{{ jenkins_admin_password.stdout }}"
+    debug:
+      msg: "{{ jenkins_admin_password.stdout }}"
+    tags:
+        - setup
 
-  - name:
-    shell: kubectl get svc --namespace default jenkins --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}"
+  - name: Get the Service IP for Jenkins
+    shell: "kubectl get svc --namespace default jenkins --template \"{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}\""
     register: SERVICE_IP
+    tags:
+        - login
 
-  - name: Get the URL for Jenkins Login
-    shell: "echo http://{{ SERVICE_IP.stdout }}:8080/login"
-    register: jenkins_login_url
+  - name: Get the URL for Jenkins Login for user = admin
+    debug:
+      msg: "http://{{ SERVICE_IP.stdout }}:8080/login"
+    tags:
+        - login
 
-  - name: Jenkins Login URL (Login when the Jenkins Pod is Ready and Running)
-    debug: msg= "{{ jenkins_login_url.stdout }}"
+  - name: To Watch the status of LoadBalancer Pod of Jenkins
+    debug:
+      msg: "Run Command: 'kubectl get svc --namespace default -w jenkins'"
+    tags:
+        - configure
 
-  - name: To Watch the status of LoadBalancer Pod of Jenkins,
-    debug: msg= "kubectl get svc --namespace default -w jenkins"
+  - name: Add a Cluster Role Binding for Jenkin's Service account('default')
+    shell: kubectl create clusterrolebinding jenkins-cluster-role --clusterrole=cluster-admin --serviceaccount=default:default
+    tags:
+        - configure
 
-
-    #Plugins to be installed in Jenkins:
-    # -GitHub
-    # -Cloudbees build and Push
-    # -Docker
 
 ...

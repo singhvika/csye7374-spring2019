@@ -1,9 +1,75 @@
-InstallPlugins:
-  - kubernetes:1.14.0
-  - workflow-job:2.31
-  - workflow-aggregator:2.6
-  - credentials-binding:1.17
-  - git:3.9.1
-  - docker:1.1.6
-  - github:1.29.4
-  - ansible:1.0
+Master:
+  Cpu: 500m
+  Memory: 1024Mi
+  OverwritePlugins: true
+  InstallPlugins:
+    - github:latest
+    - kubernetes:1.14.0
+    - workflow-job:2.31
+    - workflow-aggregator:2.6
+    - credentials-binding:1.17
+    - git:3.9.1
+    - ansible:latest
+  JCasC:
+    enabled: true
+    ConfigScripts:
+      github-credentials: |
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                  - usernamePassword:
+                      scope:    GLOBAL
+                      id:       github-user
+                      username: ${github-secret-user}
+                      password: ${github-secret-password}
+  Jobs:
+    csye7374-job: |-
+      <?xml version='1.0' encoding='UTF-8'?>
+      <project>
+        <keepDependencies>false</keepDependencies>
+        <properties/>
+        <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+            <configVersion>2</configVersion>
+            <userRemoteConfigs>
+              <hudson.plugins.git.UserRemoteConfig>
+                <url>https://github.com/${github-secret-user}/csye7374-spring2019</url>
+                <credentialsId>github-user</credentialsId>
+              </hudson.plugins.git.UserRemoteConfig>
+            </userRemoteConfigs>
+            <branches>
+              <hudson.plugins.git.BranchSpec>
+                <name>*/assignment5</name>
+              </hudson.plugins.git.BranchSpec>
+            </branches>
+            <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+            <submoduleCfg class="list"/>
+            <extensions/>
+        </scm>
+        <canRoam>false</canRoam>
+        <disabled>false</disabled>
+        <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+        <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+        <triggers class="vector">
+            <hudson.triggers.SCMTrigger>
+              <spec/>
+            </hudson.triggers.SCMTrigger>
+          </triggers>
+        <concurrentBuild>false</concurrentBuild>
+        <builders/>
+        <publishers/>
+        <buildWrappers/>
+      </project>
+
+Agent:
+  Cpu: 500m
+  Memory: 1024Mi
+  volumes:
+    - type: Secret
+      secretName: github-secret-user
+      mountPath: /var/deploy/secrets/github-secret-user
+    - type: Secret
+      secretName: github-secret-password
+      mountPath: /var/deploy/secrets/github-secret-password
+
+

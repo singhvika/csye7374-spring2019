@@ -26,6 +26,13 @@ podTemplate(
             hostPath: '/var/run/docker.sock',
             mountPath: '/var/run/docker.sock'
         )
+    ],
+    envVars: [
+        secretEnvVar(
+                key: 'AWS_ACCOUNT_ID',
+                secretName: 'my-secret',
+                secretKey: 'aws-account-id'
+            )
     ]
 ) {
     node('mypod') {
@@ -51,7 +58,7 @@ podTemplate(
             container ('docker-container') {
                 dir('webapp/spring-login-master/'){
                     docker.build('csye7374_$BUILD_NUMBER')
-                    docker.withRegistry('https://$AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-kops-user') {
+                    docker.withRegistry('https://${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-kops-user') {
                         docker.image('csye7374').push('latest15')
                     }
                 }

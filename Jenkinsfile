@@ -53,9 +53,7 @@ podTemplate(
 
         stage('Prepare App Deoplyment yaml'){
             dir ('k8s/app'){
-                sh "sed 's/account_id_to_replace/${AWS_ACCOUNT_ID}/g' deployment.yaml > deployment-account.yaml"
-                sh "sed 's/tag_to_replace/${BUILDTAG}/g' deployment-account.yaml > deployment-tag.yaml"                
-                sh "cat deployment-tag.yaml"
+                sh "sed 's/account_id_to_replace/${AWS_ACCOUNT_ID}/g' deployment.yaml"
             }
         }
         

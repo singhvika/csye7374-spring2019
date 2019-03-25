@@ -67,14 +67,19 @@ podTemplate(
 
         }
         stage('Deploy app'){
-            dir ('k8s/app'){
+            
+            container ('kubectl-container') {
+                dir ('k8s/app'){
                 sh "sed 's/account_id_to_replace/${AWS_ACCOUNT_ID}/g' deployment.yaml > deployment-account.yaml"
                 sh "sed 's/tag_to_replace/${BUILDTAG}/g' deployment-account.yaml > deployment-tag.yaml"                
                 sh "cat deployment-tag.yaml"
                 sh 'kubectl apply -f configmap.yaml'
                 sh 'kubectl apply -f loadbalancer.yaml'
                 sh 'kubectl apply -f deployment-tag.yaml'
+                }
             }
+            
+            
         }
         
          

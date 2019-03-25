@@ -1,3 +1,4 @@
+def timeStamp = Calendar.getInstance().getTime().format('YYYYMMdd-hhmmss',TimeZone.getTimeZone('EST'))
 podTemplate(
     label: 'mypod',
     inheritFrom: 'default',
@@ -35,7 +36,7 @@ podTemplate(
             ),
         envVar(
                 key: 'TIME_STAMP',
-                value: $BUILD_TIMESTAMP
+                value: timeStamp
             )
 
     ]

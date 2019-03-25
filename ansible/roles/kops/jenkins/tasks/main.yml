@@ -25,7 +25,7 @@
 
   - name: Jenkins Admin Password
     debug:
-      msg: "{{ jenkins_admin_password.stdout }}"
+      msg: " Jenkins Admin Password: {{ jenkins_admin_password.stdout }}"
     tags:
         - login
 
@@ -37,7 +37,7 @@
 
   - name: Get the URL for Jenkins Login for user = admin
     debug:
-      msg: "http://{{ SERVICE_IP.stdout }}:8080/login"
+      msg: "Jenkins Login URL>> 'http://{{ SERVICE_IP.stdout }}:8080/login'"
     tags:
         - login
 
@@ -52,6 +52,5 @@
     shell: kubectl create clusterrolebinding jenkins-cluster-role --clusterrole=cluster-admin --serviceaccount=default:default
     tags:
         - configure
-
 
 ...

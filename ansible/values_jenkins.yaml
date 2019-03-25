@@ -60,6 +60,11 @@ Master:
                       accessKey:   ${AWS_ACCESS_KEY_ID}
                       secretKey:   ${AWS_SECRET_ACCESS_KEY}
                       description: AWS Credentials
+                  - string:
+                      scope: GLOBAL
+                      id: aws-account-id
+                      secret: ${AWS_ACCOUNT_ID}
+                      description: AWS Account ID
   Jobs:
     csye7374-job: |-
       <?xml version='1.0' encoding='UTF-8'?>

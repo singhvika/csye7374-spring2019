@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: 479392477648.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest
+          image: ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest
           ports:
             - containerPort: 8080
               protocol: TCP

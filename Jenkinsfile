@@ -36,7 +36,7 @@ podTemplate(
     ]
 ) {
     node('mypod') {
-        def BUILDTS = $BUILD_TIMESTAMP
+        def BUILDTS = ${env.BUILD_TIMESTAMP}
         stage ('Extract') {
             checkout scm
         }

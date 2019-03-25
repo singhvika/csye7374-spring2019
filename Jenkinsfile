@@ -52,7 +52,7 @@ podTemplate(
 
          stage ('Docker build') {
             withEnv([
-                TIME_STAMP = ${BUILD_TIMESTAMP}
+                TIME_STAMP = $BUILD_TIMESTAMP
             ])
 
             container ('docker-container') {

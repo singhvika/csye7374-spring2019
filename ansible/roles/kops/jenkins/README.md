@@ -8,7 +8,7 @@
  
  1. `var/jenkins_secrets/jenkins-secrets/my-secret`
  
-    - To do so, run `kubectl create secret generic github-secret-user --from-literal=github-secret-user=YOUR_GITHUB_USERNAME --from-literal=aws-access-key-id=AWS_ACCESS_KEY_ID --from-literal=aws-secret-access-key=AWS_SECRET_ACCESS_KEY  --from-literal=aws-account-id=YOUR_AWS_ACCOUNT_ID --namespace default`
+    - To do so, run `kubectl create secret generic my-secret --from-literal=github-secret-user=YOUR_GITHUB_USERNAME --from-literal=aws-access-key-id=AWS_ACCESS_KEY_ID --from-literal=aws-secret-access-key=AWS_SECRET_ACCESS_KEY  --from-literal=aws-account-id=YOUR_AWS_ACCOUNT_ID --namespace default`
  
  This contains your Github and AWS credentials.
  

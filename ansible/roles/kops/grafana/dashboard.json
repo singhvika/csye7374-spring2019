@@ -65,7 +65,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "editable": true,
       "error": false,
       "format": "percent",
@@ -151,7 +151,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -237,7 +237,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "editable": true,
       "error": false,
       "format": "percent",
@@ -321,7 +321,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "editable": true,
       "error": false,
       "format": "bytes",
@@ -405,7 +405,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "editable": true,
       "error": false,
       "format": "bytes",
@@ -489,7 +489,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "editable": true,
       "error": false,
       "format": "none",
@@ -573,7 +573,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "editable": true,
       "error": false,
       "format": "none",
@@ -656,7 +656,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "editable": true,
       "error": false,
       "format": "none",
@@ -740,7 +740,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "editable": true,
       "error": false,
       "format": "none",
@@ -821,7 +821,102 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
+      "fill": 1,
+      "gridPos": {
+        "h": 17,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 15,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "http_server_requests_seconds_count",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        },
+        {
+          "expr": "csye7374_api_time_seconds_count",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "B"
+        },
+        {
+          "expr": "csye7374_api_user_register_seconds_count",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Custom API Metric Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "default",
       "decimals": 3,
       "editable": true,
       "error": false,
@@ -945,7 +1040,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -1065,7 +1160,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -1154,7 +1249,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "default",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -1269,7 +1364,7 @@
       {
         "allValue": "()",
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "default",
         "hide": 0,
         "includeAll": true,
         "label": null,
@@ -1289,7 +1384,7 @@
       {
         "allValue": "()",
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "default",
         "hide": 0,
         "includeAll": true,
         "label": null,
@@ -1309,7 +1404,7 @@
       {
         "allValue": "()",
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "default",
         "hide": 0,
         "includeAll": true,
         "label": null,
@@ -1329,7 +1424,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "default",
         "hide": 0,
         "includeAll": true,
         "label": null,

@@ -1,0 +1,110 @@
+Master:
+  Cpu: 500m
+  Memory: 1024Mi
+  NumExecutors: 2
+  SecretsFilesSecret: my-secret
+  ContainerEnv:
+    - name: GITHUB_USER
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: github-secret-user
+    - name: GITHUB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: github-secret-password
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: aws-access-key-id
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: aws-secret-access-key
+    - name: AWS_ACCOUNT_ID
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: aws-account-id
+  OverwritePlugins: true
+  InstallPlugins:
+    - github:latest
+    - kubernetes:1.14.0
+    - workflow-job:2.31
+    - workflow-aggregator:2.6
+    - credentials-binding:1.17
+    - aws-credentials:latest
+    - amazon-ecr:latest
+    - git:3.9.1
+    - build-timestamp:latest
+  JCasC:
+    enabled: true
+    ConfigScripts:
+      github-credentials: |
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                  - usernamePassword:
+                      scope:       GLOBAL
+                      id:          github-user
+                      username:    ${GITHUB_USER}
+                      password:    ${GITHUB_PASSWORD}
+                      description: Github Credentials
+                  - aws:
+                      scope:       GLOBAL
+                      id:          aws-kops-user
+                      accessKey:   ${AWS_ACCESS_KEY_ID}
+                      secretKey:   ${AWS_SECRET_ACCESS_KEY}
+                      description: AWS Credentials
+                  - string:
+                      scope: GLOBAL
+                      id: aws-account-id
+                      secret: ${AWS_ACCOUNT_ID}
+                      description: AWS Account ID
+  Jobs:
+    csye7374-job: |-
+      <?xml version='1.0' encoding='UTF-8'?>
+      <project>
+        <keepDependencies>false</keepDependencies>
+        <properties/>
+        <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+            <configVersion>2</configVersion>
+            <userRemoteConfigs>
+              <hudson.plugins.git.UserRemoteConfig>
+                <url>https://github.com/${GITHUB_USER}/csye7374-spring2019</url>
+                <credentialsId>github-user</credentialsId>
+              </hudson.plugins.git.UserRemoteConfig>
+            </userRemoteConfigs>
+            <branches>
+              <hudson.plugins.git.BranchSpec>
+                <name>*/assignment5</name>
+              </hudson.plugins.git.BranchSpec>
+            </branches>
+            <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+            <submoduleCfg class="list"/>
+            <extensions/>
+        </scm>
+        <canRoam>false</canRoam>
+        <disabled>false</disabled>
+        <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+        <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+        <triggers class="vector">
+            <hudson.triggers.SCMTrigger>
+              <spec/>
+            </hudson.triggers.SCMTrigger>
+          </triggers>
+        <concurrentBuild>false</concurrentBuild>
+        <builders/>
+        <publishers/>
+        <buildWrappers/>
+      </project>
+
+Agent:
+  Cpu: 500m
+  Memory: 1024Mi
+
+

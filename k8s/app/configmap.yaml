@@ -3,5 +3,4 @@ kind: ConfigMap
 metadata:
   name: csye7374-app-s3-configmap
 data:
-  s3_bucket: webapp.codereview1.k8s.keskarc.me
-
+  s3_bucket: webapp.k8s.csye6225-spring2018-singhvika.me

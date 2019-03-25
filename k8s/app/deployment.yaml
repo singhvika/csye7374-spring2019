@@ -1,23 +1,29 @@
----
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: cloudapp-replica-controller
+  name: cloudapp-deployment
   labels:
-    app: cloudappm
+    app: cloudapp
 spec:
-  replicas: 3
+  strategy:
+    type: RollingUpdate
   selector:
-    app: cloudappm
+    matchLabels:
+      app: cloudapp
+  replicas: 3
   template:
     metadata:
       name: pod1
       labels:
-        app: cloudappm
+        app: cloudapp
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '8080'
+        prometheus.io/path: '/actuator/prometheus'
     spec:
       containers:
         - name: webapp
-          image: 479392477648.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest
+          image: account_id_to_replace.dkr.ecr.us-east-1.amazonaws.com/csye7374:tag_to_replace
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -62,3 +68,4 @@ spec:
               memory: "256Mi"
               cpu: "500m"
 ...
+        - containerPort: 80

@@ -8,7 +8,7 @@ org_id: "1"
 
 #For Provision Tasks
 data_source:
-  - name: DS_PROMETHEUS
+  - name: PROMETHEUS
     ds_type: "prometheus"
     url: "http://{{ prometheus_server_IP.stdout }}:9090"
 ...

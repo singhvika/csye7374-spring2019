@@ -4,5 +4,6 @@
     roles:
       - kops/common
       - kops/setup_cluster
+      - kops/setup_helm
       - kops/deploy_dashboard
 ...

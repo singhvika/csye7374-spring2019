@@ -5,5 +5,5 @@
     register: accountId
 
   - name: Install fluentd
-    shell: "helm install --name fluentd incubator/fluentd-cloudwatch -f {{ playbook_dir }}/../k8s/fluentd/values.yaml --set awsRole=arn:aws:iam::{{ accountId.stdout }}:role/nodes.{{ clusterName }},extraVars[0]=\"\{ name: FLUENT_UID\, value: '0' \}\""
+    shell: "helm install --name fluentd incubator/fluentd-cloudwatch -f {{ playbook_dir }}/../k8s/fluentd/values.yaml --set awsRole=arn:aws:iam::{{ accountId.stdout }}:role/nodes.{{ clusterName }},extraVars[0]=\"\\{ name: FLUENT_UID\\, value: '0' \\}\""
 ...

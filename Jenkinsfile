@@ -32,7 +32,7 @@ podTemplate(
                 key: 'AWS_ACCOUNT_ID',
                 secretName: 'my-secret',
                 secretKey: 'aws-account-id'
-            )
+            ),
         envVar(
                 key: 'TIME_STAMP',
                 value: $BUILD_TIMESTAMP

@@ -64,7 +64,6 @@ podTemplate(
                 }
             }
          }
-        sed 's/word1/word2/g' input.file
         stage('Prepare App Deoplyment yaml'){
             dir ('k8s/app'){
                 sh "sed 's/account_id_to_replace/${AWS_ACCOUNT_ID}/g' deployment.yaml"

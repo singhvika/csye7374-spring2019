@@ -51,15 +51,11 @@ podTemplate(
          }
 
          stage ('Docker build') {
-            withEnv([
-                TIME_STAMP = $BUILD_TIMESTAMP
-            ])
-
             container ('docker-container') {
                 dir('webapp/spring-login-master/'){
                     docker.build('csye7374')
                     docker.withRegistry('https://${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-kops-user') {
-                    docker.image('csye7374').push('Build-$BUILD_NUMBER_${TIME_STAMP}')
+                    docker.image('csye7374').push('latest-$BUILD_NUMBER_$BUILD_TIMESTAMP')
                     }
                 }
             }

@@ -1,4 +1,3 @@
-def timeStamp = Calendar.getInstance().getTime().format('YYYYMMdd-hhmmss',TimeZone.getTimeZone('EST'))
 podTemplate(
     label: 'mypod',
     inheritFrom: 'default',
@@ -33,12 +32,7 @@ podTemplate(
                 key: 'AWS_ACCOUNT_ID',
                 secretName: 'my-secret',
                 secretKey: 'aws-account-id'
-            ),
-        envVar(
-                key: 'TIME_STAMP',
-                value: timeStamp
             )
-
     ]
 ) {
     node('mypod') {
@@ -57,7 +51,10 @@ podTemplate(
          }
 
          stage ('Docker build') {
-            
+            withEnv([
+                TIME_STAMP = ${BUILD_TIMESTAMP}
+            ])
+
             container ('docker-container') {
                 dir('webapp/spring-login-master/'){
                     docker.build('csye7374')

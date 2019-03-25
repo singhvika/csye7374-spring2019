@@ -36,7 +36,7 @@ podTemplate(
     ]
 ) {
     node('mypod') {
-        def BUILDTS = Calendar.getInstance().getTime().format('YYYYMMdd-hhmmss')
+        def BUILDTS = "${BUILD_TIMESTAMP}"
         stage ('Extract') {
             checkout scm
         }

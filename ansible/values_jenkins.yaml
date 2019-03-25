@@ -39,6 +39,7 @@ Master:
     - aws-credentials:latest
     - amazon-ecr:latest
     - git:3.9.1
+    - build-timestamp:latest
   JCasC:
     enabled: true
     ConfigScripts:

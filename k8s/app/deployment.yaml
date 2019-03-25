@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: 946899997174.dkr.ecr.us-east-1.amazonaws.com/csye7374:latest
+          image: account_id_to_replace.dkr.ecr.us-east-1.amazonaws.com/csye7374:tag_to_replace
           ports:
             - containerPort: 8080
               protocol: TCP

@@ -34,9 +34,11 @@ podTemplate(
                 secretKey: 'aws-account-id'
             )
     ]
-) {
+) 
+{
     node('mypod') {
         def BUILDTS = "${BUILD_TIMESTAMP}"
+        def BUILDTAG = "build-${BUILDTS}"
         stage ('Extract') {
             checkout scm
         }
@@ -50,37 +52,36 @@ podTemplate(
             }
          }
 
-         stage ('Docker build') {
+        stage ('Docker build') {
+
             container ('docker-container') {
                 dir('webapp/spring-login-master/'){
-                    docker.build("csye7374-${BUILDTS}")
+                    docker.build("csye7374")
                     docker.withRegistry('https://${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-kops-user') {
-                        docker.image("csye7374-${BUILDTS}").push("build-${BUILDTS}")
-                        docker.image("csye7374-${BUILDTS}").push("latest")
+                        docker.image("csye7374").push("${BUILDTAG}")
+                        docker.image("csye7374").push("latest")
 
                     }
                 }
             }
-         }
-        
-        stage('Prepare App Deoplyment yaml'){
-            dir ('k8s/app'){
 
-            }
         }
-        
-        stage ('Deploy application') {
-
+        stage('Deploy app'){
+            
             container ('kubectl-container') {
-                dir('k8s/app/'){
-                   sh 'kubectl apply -f configmap.yaml'
-                   sh 'kubectl apply -f loadbalancer.yaml'
-                   sh 'kubectl apply -f deployment.yaml'
+                dir ('k8s/app'){
+                sh "sed 's/account_id_to_replace/${AWS_ACCOUNT_ID}/g' deployment.yaml > deployment-account.yaml"
+                sh "sed 's/tag_to_replace/${BUILDTAG}/g' deployment-account.yaml > deployment-tag.yaml"                
+                sh "cat deployment-tag.yaml"
+                sh 'kubectl apply -f configmap.yaml'
+                sh 'kubectl apply -f loadbalancer.yaml'
+                sh 'kubectl apply -f deployment-tag.yaml'
                 }
             }
-        }   
-
-         
+            
+            
+        }
+        
          
     }
 }

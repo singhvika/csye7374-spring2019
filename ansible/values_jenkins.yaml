@@ -84,7 +84,7 @@ Master:
             <configVersion>2</configVersion>
             <userRemoteConfigs>
             <hudson.plugins.git.UserRemoteConfig>
-            <url>https://github.com/urvi2095/csye7374-spring2019</url>
+            <url>https://github.com/${GITHUB_USER}/csye7374-spring2019</url>
             <credentialsId>github-user</credentialsId>
             </hudson.plugins.git.UserRemoteConfig>
             </userRemoteConfigs>

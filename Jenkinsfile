@@ -51,19 +51,6 @@ podTemplate(
             }
          }
 
-         stage ('Docker build') {
-            
-            container ('docker-container') {
-                dir('webapp/spring-login-master/'){
-                    docker.build("csye7374")
-                    docker.withRegistry('https://${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-kops-user') {
-                        docker.image("csye7374").push("${BUILDTAG}")
-                        docker.image("csye7374").push("latest")
-                        
-                    }
-                }
-            }
-         }
         stage('Prepare App Deoplyment yaml'){
             dir ('k8s/app'){
                 sh "sed 's/account_id_to_replace/${AWS_ACCOUNT_ID}/g' deployment.yaml > deployment-account.yaml"

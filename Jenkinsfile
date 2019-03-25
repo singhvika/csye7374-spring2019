@@ -36,7 +36,7 @@ podTemplate(
     ]
 ) {
     node('mypod') {
-
+        def BUILDTS = "${BUILD_TIMESTAMP}"
         stage ('Extract') {
             checkout scm
         }
@@ -53,15 +53,23 @@ podTemplate(
          stage ('Docker build') {
             container ('docker-container') {
                 dir('webapp/spring-login-master/'){
-                    docker.build('csye7374')
+                    docker.build("csye7374-${BUILDTS}")
                     docker.withRegistry('https://${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-kops-user') {
-                    docker.image('csye7374').push('latest-$BUILD_NUMBER-$BUILD_TIMESTAMP')
+                        docker.image("csye7374-${BUILDTS}").push("build-${BUILDTS}")
+                        docker.image("csye7374-${BUILDTS}").push("latest")
+
                     }
                 }
             }
          }
+        
+        stage('Prepare App Deoplyment yaml'){
+            dir ('k8s/app'){
 
-         stage ('Deploy application') {
+            }
+        }
+        
+        stage ('Deploy application') {
 
             container ('kubectl-container') {
                 dir('k8s/app/'){
@@ -70,6 +78,9 @@ podTemplate(
                    sh 'kubectl apply -f deployment.yaml'
                 }
             }
-         }
+        }   
+
+         
+         
     }
 }

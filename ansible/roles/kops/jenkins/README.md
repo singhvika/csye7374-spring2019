@@ -2,18 +2,17 @@
 
  ## Requirements
  
- First off, we reuqire your Kubernetes Cluster and AWS Cloud Resources to be up.
+ First off, we require your Kubernetes Cluster and AWS Cloud Resources to be up.
  
- The Project we have prepared here, also expects two secrets (files) to be present:
+ The Project we have prepared here, also expects a secret (files) to be present:
  
- 1. `var/deploy/ecrets/github-secret-user`
-    - To do so, run `kubectl create secret generic github-secret-user --from-literal=github-secret-user=YOUR_GITHUB_USERNAME --namespace default`
- 2. `var/deploy/ecrets/github-secret-password`
-    - To do so, run `kubectl create secret generic github-secret-password --from-literal=github-secret-password=YOUR_GITHUB_PASSWORD --namespace default`
+ 1. `var/jenkins_secrets/jenkins-secrets/my-secret`
  
- The first one is a secret for your github username and second one is for your github password to github repositories.
+    - To do so, run `kubectl create secret generic github-secret-user --from-literal=github-secret-user=YOUR_GITHUB_USERNAME --from-literal=aws-access-key-id=AWS_ACCESS_KEY_ID --from-literal=aws-secret-access-key=AWS_SECRET_ACCESS_KEY  --from-literal=aws-account-id=YOUR_AWS_ACCOUNT_ID --namespace default`
  
- [Both of these are mounted using Volume Mounts for our Jenkins Agent, Refer values_jenkins.yaml]
+ This contains your Github and AWS credentials.
+ 
+ [Both of these are mounted using Volume Mounts for our Jenkins Agent and used as Environment Variables, Refer values_jenkins.yaml]
  
  ### Setup Jenkins
  

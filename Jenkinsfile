@@ -62,17 +62,15 @@ podTemplate(
             }
          }
 
-         withCredentials([string(credentialsId: 'aws-account-id', variable: 'AWS_ACCOUNT_ID')]) {
-            stage ('Deploy application') {
+         stage ('Deploy application') {
 
-                        container ('kubectl-container') {
-                            dir('k8s/app/'){
-                               sh 'kubectl apply -f configmap.yaml'
-                               sh 'kubectl apply -f loadbalancer.yaml'
-                               sh 'kubectl apply -f deployment.yaml'
-                            }
-                        }
-                     }
+            container ('kubectl-container') {
+                dir('k8s/app/'){
+                   sh 'kubectl apply -f configmap.yaml'
+                   sh 'kubectl apply -f loadbalancer.yaml'
+                   sh 'kubectl apply -f deployment.yaml'
+                }
+            }
          }
     }
 }

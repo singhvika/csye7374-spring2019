@@ -63,6 +63,23 @@ podTemplate(
                 }
             }
          }
+        
+        stage('Prepare App Deoplyment yaml'){
+            dir ('k8s/app'){
+
+            }
+        }
+        
+        stage ('Deploy application') {
+
+            container ('kubectl-container') {
+                dir('k8s/app/'){
+                   sh 'kubectl apply -f configmap.yaml'
+                   sh 'kubectl apply -f loadbalancer.yaml'
+                   sh 'kubectl apply -f deployment.yaml'
+                }
+            }
+        }   
 
          
          

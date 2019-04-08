@@ -1,5 +1,9 @@
 #roles/setup_helm/tasks
 ---
+
+  - name: ClusterRoleBinding for kubelet-api-admin
+    shell: "kubectl create clusterrolebinding kubelet-api-admin --clusterrole=system:kubelet-api-admin --user=kubelet-api"
+
   - name: Tiller service account
     shell: "kubectl -n kube-system create serviceaccount tiller"
 

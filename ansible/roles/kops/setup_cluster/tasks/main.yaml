@@ -18,7 +18,16 @@
   - name: Attach ElasticLoadBalancingFullAccess policy to the role of our master nodes
     shell: 'aws iam attach-role-policy --role-name "masters.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"'
 
-  # Attach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+  # Attach ElasticLoadBalancingFullAccess Policy to the role of our worker nodes
   - name: Attach CloudWatchFullAccess policy to the role of our worker nodes
     shell: 'aws iam attach-role-policy --role-name "nodes.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/CloudWatchFullAccess"'
+
+  # Attach AutoScalingFullAccess Policy to the role of our master nodes
+  - name: Attach AutoScalingFullAccess policy to the role of our master nodes
+    shell: 'aws iam attach-role-policy --role-name "masters.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/AutoScalingFullAccess"'
+
+  # Attach AutoScalingFullAccess Policy to the role of our worker nodes
+  - name: Attach AutoScalingFullAccess policy to the role of our worker nodes
+    shell: 'aws iam attach-role-policy --role-name "nodes.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/AutoScalingFullAccess"'
+
 ...

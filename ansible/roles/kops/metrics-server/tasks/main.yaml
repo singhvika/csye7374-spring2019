@@ -1,0 +1,6 @@
+---
+
+- name: Adding Metrics Server
+  shell: "helm install --name metrics-server stable/metrics-server -f {{ playbook_dir }}/../k8s/app/metrics-server-values.yaml"
+
+...

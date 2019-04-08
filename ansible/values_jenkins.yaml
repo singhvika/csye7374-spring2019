@@ -67,42 +67,42 @@ Master:
                       description: AWS Account ID
   Jobs:
     csye7374-job: |-
-      <?xml version='1.0' encoding='UTF-8'?>
-      <project>
+      <flow-definition plugin="workflow-job@2.31">
+      <description/>
         <keepDependencies>false</keepDependencies>
-        <properties/>
-        <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+        <properties>
+          <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+          <triggers>
+          <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.29.4">
+          <spec/>
+          </com.cloudbees.jenkins.GitHubPushTrigger>
+          </triggers>
+          </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+        </properties>
+        <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.65">
+          <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.1">
             <configVersion>2</configVersion>
             <userRemoteConfigs>
-              <hudson.plugins.git.UserRemoteConfig>
-                <url>https://github.com/${GITHUB_USER}/csye7374-spring2019</url>
-                <credentialsId>github-user</credentialsId>
-              </hudson.plugins.git.UserRemoteConfig>
+            <hudson.plugins.git.UserRemoteConfig>
+            <url>https://github.com/${GITHUB_USER}/csye7374-spring2019</url>
+            <credentialsId>github-user</credentialsId>
+            </hudson.plugins.git.UserRemoteConfig>
             </userRemoteConfigs>
             <branches>
-              <hudson.plugins.git.BranchSpec>
-                <name>*/assignment5</name>
-              </hudson.plugins.git.BranchSpec>
+            <hudson.plugins.git.BranchSpec>
+            <name>*/assignment5</name>
+            </hudson.plugins.git.BranchSpec>
             </branches>
             <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
             <submoduleCfg class="list"/>
             <extensions/>
-        </scm>
-        <canRoam>false</canRoam>
-        <disabled>false</disabled>
-        <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-        <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-        <triggers class="vector">
-            <hudson.triggers.SCMTrigger>
-              <spec/>
-            </hudson.triggers.SCMTrigger>
-          </triggers>
-        <concurrentBuild>false</concurrentBuild>
-        <builders/>
-        <publishers/>
-        <buildWrappers/>
-      </project>
-
+          </scm>
+          <scriptPath>Jenkinsfile</scriptPath>
+          <lightweight>true</lightweight>
+      </definition>
+      <triggers/>
+      <disabled>false</disabled>
+      </flow-definition>
 Agent:
   Cpu: 500m
   Memory: 1024Mi

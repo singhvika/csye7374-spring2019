@@ -2,10 +2,6 @@
 
 set -e
 
-cat cluster-autoscaler.yaml
-
-kubectl apply -f cluster-autoscaler.yaml
-
 CLUSTER_NAME="keskarc.k8s.keskarc.me"
 NODE_INSTANCE_GROUP_NAME="nodes"
 MASTER_INSTANCE_GROUP_NAME="masters"
@@ -48,11 +44,13 @@ else
   printf "Policy does not yet exist, creating now.\n"
   ASG_POLICY=$(aws iam create-policy --policy-name $ASG_POLICY_NAME --policy-document file://asg-policy.json --output json)
   ASG_POLICY_ARN=$(echo $ASG_POLICY | jq -r '.Policy.Arn')
-  printf " ✅ \n"
+  printf "\n"
 fi
 
 printf "Attaching policy to IAM Role for master nodes\n"
 aws iam attach-role-policy --policy-arn $ASG_POLICY_ARN --role-name $MASTER_IAM_ROLE
-printf " ✅ \n"
+printf "\n"
+
+kubectl apply -f cluster-autoscaler.yaml
 
 printf "Done\n"

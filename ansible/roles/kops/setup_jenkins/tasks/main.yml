@@ -70,7 +70,7 @@
         - configure
 
   - name: Setup github webhook for your repository
-    shell: "echo $(curl -X POST https://api.github.com/repos/{{githubUsername}}/{{githubRepoName}}/hooks -H 'authorization: token {{gitHubWebHookToken}}' -H 'cache-control: no-cache' -H 'content-type: application/json' -d '{\"active\": true, \"events\": [\"push\"], \"config\": { \"url\": \"{{jenkins_service_ip.stdout}}:8080/github-webhook/\", \"content_type\": \"json\" }}')"
+    shell: "curl -X POST https://api.github.com/repos/{{githubUsername}}/{{githubRepoName}}/hooks -H 'authorization: token {{gitHubWebHookToken}}' -H 'cache-control: no-cache' -H 'content-type: application/json' -d '{\"active\": true, \"events\": [\"push\"], \"config\": { \"url\": \"http://{{jenkins_service_ip.stdout}}:8080/github-webhook/\", \"content_type\": \"json\" }}'"
     tags:
         - configure
 

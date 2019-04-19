@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: csye7374-clouapp-deployment
   labels:
-    deployment: clouapp-deployment
+    deployment: csye7374-clouapp-deployment
 spec:
   strategy:
     type: RollingUpdate

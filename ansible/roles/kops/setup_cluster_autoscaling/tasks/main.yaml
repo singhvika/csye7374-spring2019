@@ -14,7 +14,11 @@
   - name: Changing permissions for the cluster autoscaling script
     shell: "chmod 777 {{ playbook_dir }}/../k8s/cluster-autoscaler/cluster-autoscaler-script.sh"
 
-  - name: Running the cluster autoscaling script
-    script: "{{ playbook_dir }}/../k8s/cluster-autoscaler/cluster-autoscaler-script.sh"
+#  - name: Running the cluster autoscaling script
+#    script: "{{ playbook_dir }}/../k8s/cluster-autoscaler/cluster-autoscaler-script.sh"
+
+  - name: To do for cluster autoscaling process
+    debug:
+      msg: "To complete cluster autoscaling process, go to /k8s/cluster-autoscaler and run ./cluster-autoscaler-script.sh"
 
 ...

@@ -141,7 +141,7 @@ spec:
       serviceAccountName: cluster-autoscaler
       containers:
         - name: cluster-autoscaler
-          image: k8s.gcr.io/cluster-autoscaler:v1.13.2
+          image: k8s.gcr.io/cluster-autoscaler:v1.13.2 #needs to change in case kubernetes version changes
           livenessProbe:
             httpGet:
               path: /health-check

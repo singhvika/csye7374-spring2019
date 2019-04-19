@@ -106,9 +106,3 @@ Master:
 Agent:
   Cpu: 500m
   Memory: 1024Mi
-rbac:
-  install: false
-  serviceAccountName: jenkins-svc-account
-  roleRef: cluster-admin
-  roleKind: ClusterRole
-  roleBindingKind: ClusterRoleBinding6

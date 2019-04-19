@@ -1,3 +1,5 @@
+import java.text.*
+
 podTemplate(
     label: 'mypod',
     inheritFrom: 'default',
@@ -39,6 +41,11 @@ podTemplate(
 
     node('mypod') {
 
+        TimeZone newyork = TimeZone.getTimeZone("America/New_York")
+        def dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss")
+        dateFormat.setTimeZone(newyork)
+        def date = new Date()
+        def BUILDTS = dateFormat.format(date)
         def BUILDTS = "${BUILD_TIMESTAMP}"
         def BUILDTAG = "build-${BUILDTS}"
         stage ('Extract') {

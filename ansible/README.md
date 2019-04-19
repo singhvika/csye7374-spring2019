@@ -73,3 +73,4 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 `ansible-playbook teardown-cloud-resources.yaml --extra-vars "clusterName=cluster_name"`
 
 `ansible-playbook k8s-teardown.yaml --extra-vars "clusterName=cluster_name  stateStore=state_store_name"`
+

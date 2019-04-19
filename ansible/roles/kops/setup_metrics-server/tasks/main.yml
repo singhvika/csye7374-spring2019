@@ -1,0 +1,7 @@
+---
+#roles/setup_metrics_server/tasks
+
+- name: Adding Metrics Server
+  shell: "helm install --name metrics-server stable/metrics-server -f {{ playbook_dir }}/../ansible/values_metrics-server.yaml"
+
+...

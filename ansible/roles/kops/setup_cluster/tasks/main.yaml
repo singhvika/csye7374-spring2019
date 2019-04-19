@@ -4,8 +4,26 @@
   - name: Setup cluster
     shell: "kops create cluster --node-size {{nodeSize}} --master-size {{masterSize}} --kubernetes-version 1.13.0 --zones us-east-1b,us-east-1c,us-east-1d --master-zones us-east-1b,us-east-1c,us-east-1d --node-count {{nodeCount}} --name {{clusterName}} --state {{state}}"
 
+  - name: Get cluster manifest
+    shell: 'kops get cluster {{clusterName}} --state {{state}} -o yaml > {{clusterName}}.yaml'
+
+  - name: Update cluster manifest for authenticationTokenWebhook
+    lineinfile:
+      path: "{{ playbook_dir }}/{{clusterName}}.yaml"
+      line: '    authenticationTokenWebhook: true'
+      insertbefore:  kubernetesApiAccess:*.
+
+  - name: Update cluster manifest for authorizationMode
+    lineinfile:
+      path: "{{ playbook_dir }}/{{clusterName}}.yaml"
+      line: '    authorizationMode: Webhook'
+      insertbefore:  kubernetesApiAccess:*.
+  
+  - name: Replace cluster manifest
+    shell: 'kops replace -f {{clusterName}}.yaml --name {{clusterName}} --state {{state}}'
+
   - name: Update and build cluster
-    shell: "kops update cluster {{clusterName}} --state {{state}} --yes"
+    shell: 'kops update cluster {{clusterName}} --state {{state}} --yes'
 
   - name: Validate cluster
     shell:  "kops validate cluster --name {{clusterName}} --state {{state}}"
@@ -14,20 +32,13 @@
     retries:  20
     delay:  60
 
-  # Attach ElasticLoadBalancingFullAccess Policy to the role of our master nodes
+  - name: Fixing kubelet access
+    shell: 'kubectl create clusterrolebinding kubelet-api-admin --clusterrole=system:kubelet-api-admin --user=kubelet-api'
+
   - name: Attach ElasticLoadBalancingFullAccess policy to the role of our master nodes
     shell: 'aws iam attach-role-policy --role-name "masters.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"'
 
-  # Attach ElasticLoadBalancingFullAccess Policy to the role of our worker nodes
   - name: Attach CloudWatchFullAccess policy to the role of our worker nodes
     shell: 'aws iam attach-role-policy --role-name "nodes.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/CloudWatchFullAccess"'
-
-  # Attach AutoScalingFullAccess Policy to the role of our master nodes
-  - name: Attach AutoScalingFullAccess policy to the role of our master nodes
-    shell: 'aws iam attach-role-policy --role-name "masters.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/AutoScalingFullAccess"'
-
-  # Attach AutoScalingFullAccess Policy to the role of our worker nodes
-  - name: Attach AutoScalingFullAccess policy to the role of our worker nodes
-    shell: 'aws iam attach-role-policy --role-name "nodes.{{clusterName}}" --policy-arn "arn:aws:iam::aws:policy/AutoScalingFullAccess"'
 
 ...

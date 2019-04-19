@@ -1,0 +1,12 @@
+---
+#roles/setup_jenkins/vars
+
+githubUsername: "{{githubUsername}}"
+githubPassword: "{{githubPassword}}"
+githubRepoName: "{{githubRepoName}}"
+gitHubWebHookToken: "{{gitHubWebHookToken}}"
+awsUserAccesskey: "{{awsUserAccesskey}}"
+awsUserSecretAccesskey: "{{awsUserSecretAccesskey}}"
+branchName: "{{branchName}}"
+
+...

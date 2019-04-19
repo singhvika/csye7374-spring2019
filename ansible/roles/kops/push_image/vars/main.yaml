@@ -1,5 +1,7 @@
 ---
+
 ecr: "{{ecr}}"
-tag: "{{tag}}"
+imageTag: "{{imageTag}}"
 applicationName: "{{applicationName}}"
+
 ...

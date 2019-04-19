@@ -1,6 +1,8 @@
 ---
+
 - name: Deploy application to the cluster
   hosts:  localhost
   roles:
       - kops/deploy_app
+
 ...

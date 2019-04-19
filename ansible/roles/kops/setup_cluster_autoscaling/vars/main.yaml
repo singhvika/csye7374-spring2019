@@ -1,0 +1,8 @@
+---
+#roles/setup_cluster_autoscaling/vars
+
+minNodes: "{{minNodes}}"
+maxNodes: "{{maxNodes}}"
+awsRegion: "{{awsRegion}}"
+
+...

@@ -1,9 +1,11 @@
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudapp-deployment
+  name: csye7374-clouapp-deployment
   labels:
-    app: cloudapp
+    deployment: csye7374-clouapp-deployment
 spec:
   strategy:
     type: RollingUpdate
@@ -13,7 +15,7 @@ spec:
   replicas: 3
   template:
     metadata:
-      name: pod1
+      name: cloudapp-pod
       labels:
         app: cloudapp
       annotations:
@@ -22,8 +24,8 @@ spec:
         prometheus.io/path: '/actuator/prometheus'
     spec:
       containers:
-        - name: webapp
-          image: account_id_to_replace.dkr.ecr.us-east-1.amazonaws.com/csye7374:tag_to_replace
+        - name: cloudapp-container
+          image: account_id_to_replace.dkr.ecr.us-east-1.amazonaws.com/ecr_to_replace:tag_to_replace
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -67,5 +69,5 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "500m"
+
 ...
-        - containerPort: 80

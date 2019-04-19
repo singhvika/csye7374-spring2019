@@ -46,7 +46,6 @@ podTemplate(
         dateFormat.setTimeZone(newyork)
         def date = new Date()
         def BUILDTS = dateFormat.format(date)
-        def BUILDTS = "${BUILD_TIMESTAMP}"
         def BUILDTAG = "build-${BUILDTS}"
         stage ('Extract') {
 

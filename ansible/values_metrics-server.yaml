@@ -1,0 +1,69 @@
+rbac:
+  create: true
+  pspEnabled: false
+
+serviceAccount:
+  create: true
+  name: metrics-server-svc-account
+
+apiService:
+  create: true
+
+hostNetwork:
+  enabled: false
+
+image:
+  repository: gcr.io/google_containers/metrics-server-amd64
+  tag: v0.3.2
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+args:
+  - --logtostderr
+  - --kubelet-insecure-tls
+  - --kubelet-preferred-address-types=InternalIP
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+replicas: 1
+
+podAnnotations: {}
+
+extraVolumeMounts: []
+
+extraVolumes: []
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: https
+    scheme: HTTPS
+  initialDelaySeconds: 20
+
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: https
+    scheme: HTTPS
+  initialDelaySeconds: 20
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["all"]
+  readOnlyRootFilesystem: true
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+service:
+  annotations: {}
+  port: 443
+  type: ClusterIP

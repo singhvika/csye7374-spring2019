@@ -1,0 +1,77 @@
+---
+#roles/setup_jenkins/tasks
+
+#All Setup tasks
+  - name: Get aws account id
+    shell: "aws sts get-caller-identity --output text --query 'Account'"
+    register: awsAccountId
+
+  - name: Create Jenkins secret
+    shell: 'kubectl create secret generic my-secret --from-literal=github-secret-user={{githubUsername}} --from-literal=github-secret-password={{githubPassword}} --from-literal=aws-access-key-id={{awsUserAccesskey}} --from-literal=aws-secret-access-key={{awsUserSecretAccesskey}} --from-literal=aws-account-id={{awsAccountId.stdout}} --namespace default'
+    tags:
+        - setup
+
+  - name: Jinja template copy for jenkins values_jenkins.yaml file
+    template:
+      src: values_jenkins-template.yaml
+      dest: "{{ playbook_dir }}/values_jenkins.yaml"
+    tags:
+        - setup
+
+  - name: Install Jenkins on Kubernetes
+    shell: 'helm install -f values_jenkins.yaml --name jenkins stable/jenkins'
+    tags:
+        - setup
+
+  - name: Wait until the Jenkins Master Pod is Ready
+    shell: 'kubectl get pods --namespace default -l "app=jenkins,release=jenkins" -o jsonpath="{.items[0].status.conditions[1].status}"'
+    register: status
+    until: status.stdout.find('True')  !=  -1
+    retries: 15
+    delay: 10
+    tags:
+        - setup
+
+  - name: Add a Cluster Role Binding for Jenkin's Service account('default')
+    shell: 'kubectl create clusterrolebinding jenkins-cluster-role --clusterrole=cluster-admin --serviceaccount=default:default'
+    tags:
+        - setup
+
+#All Login tasks
+  - name: Get your Jenkins 'admin' user password
+    shell: kubectl get secret --namespace default jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode ; echo
+    register: jenkins_admin_password
+    tags:
+        - login
+
+  - name: Jenkins Admin Password
+    debug:
+      msg: " Jenkins Admin Password: {{jenkins_admin_password.stdout}}"
+    tags:
+        - login
+
+  - name: Get the Service IP for Jenkins
+    shell: "kubectl get svc --namespace default jenkins -o jsonpath=\"{.status.loadBalancer.ingress[0].hostname}\""
+    register: jenkins_service_ip
+    tags:
+        - login
+
+  - name: Get the URL for Jenkins Login for user = admin
+    debug:
+      msg: "Jenkins Login URL>> 'http://{{jenkins_service_ip.stdout}}:8080/login'"
+    tags:
+        - login
+
+#All Configuration tasks
+  - name: To Watch the status of LoadBalancer Pod of Jenkins
+    debug:
+      msg: "Run Command: 'kubectl get svc --namespace default -w jenkins'"
+    tags:
+        - configure
+
+  - name: Setup github webhook for your repository
+    shell: "echo $(curl -X POST https://api.github.com/repos/{{githubUsername}}/{{githubRepoName}}/hooks -H 'authorization: token {{gitHubWebHookToken}}' -H 'cache-control: no-cache' -H 'content-type: application/json' -d '{\"active\": true, \"events\": [\"push\"], \"config\": { \"url\": \"{{jenkins_service_ip.stdout}}:8080/github-webhook/\", \"content_type\": \"json\" }}')"
+    tags:
+        - configure
+
+...

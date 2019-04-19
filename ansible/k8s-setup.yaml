@@ -5,6 +5,6 @@
       - kops/common
       - kops/setup_cluster
       - kops/setup_helm
-      - kops/metrics-server
+      - kops/setup_metrics-server
       - kops/deploy_dashboard
 ...

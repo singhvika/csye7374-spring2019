@@ -16,10 +16,12 @@
 
 ### Secret file ###
 k8s/app/secret.yaml
+k8s/app/*secret*.yaml
 
 ## Files created using templates ###
 k8s/app/configmap.yaml
 k8s/app/loadbalancer.yaml
 k8s/app/replication-controller.yaml
+k8s/app/init-deployment.yaml
 
 *.DS_Store

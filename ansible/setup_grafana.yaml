@@ -2,5 +2,5 @@
   - name: Create Grafana DashBoard
     hosts: localhost
     roles:
-      - kops/grafana
+      - kops/setup_grafana
 ...

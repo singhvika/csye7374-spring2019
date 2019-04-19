@@ -11,6 +11,6 @@ spec:
       name: lb
       targetPort: 8080
   selector:
-    app: {{ appName }}
+    app: {{appName}}
   type: LoadBalancer
 ...

@@ -1,16 +1,17 @@
-#roles/build_image/tasks
 ---
+#roles/build_image/tasks
 
   - name: Get aws account id
     shell: "aws sts get-caller-identity --output text --query 'Account'"
     register: accountId
 
   - name: Tag image
-    shell:  "sudo docker tag {{applicationName}}:latest {{accountId.stdout}}.dkr.ecr.us-east-1.amazonaws.com/{{ecr}}:{{tag}}"
+    shell:  "sudo docker tag {{applicationName}}:latest {{accountId.stdout}}.dkr.ecr.us-east-1.amazonaws.com/{{ecr}}:{{imageTag}}"
   
   - name: Docker login
     shell:  "sudo $(aws ecr get-login --no-include-email --region us-east-1)"
 
   - name: Push image to ecr
-    shell:  "sudo docker push {{accountId.stdout}}.dkr.ecr.us-east-1.amazonaws.com/{{ecr}}:{{tag}}"
+    shell:  "sudo docker push {{accountId.stdout}}.dkr.ecr.us-east-1.amazonaws.com/{{ecr}}:{{imageTag}}"
+
 ...

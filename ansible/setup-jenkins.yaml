@@ -2,5 +2,5 @@
 - name: Getting Jenkins Setup
   hosts: localhost
   roles:
-    - kops/jenkins
+    - kops/setup_jenkins
 ...

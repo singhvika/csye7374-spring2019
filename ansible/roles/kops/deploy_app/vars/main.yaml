@@ -1,8 +1,10 @@
 ---
   clusterName: "{{clusterName}}"
-  tag: "{{tag}}"
+  imageTag: "{{imageTag}}"
   appName: "{{appName}}"
   ecr: "{{ecr}}"
   containerName: "{{containerName}}"
   podName: "{{podName}}"
+  deploymentName: "{{deploymentName}}"
+  deployment: csye7374-{{deploymentName}}
 ...

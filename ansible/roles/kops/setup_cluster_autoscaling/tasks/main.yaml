@@ -1,0 +1,20 @@
+---
+#roles/setup_cluster_autoscaling/tasks
+
+  - name: Jinja template copy for cluster autoscaler script
+    template:
+      src: cluster-autoscaler-script-template.sh
+      dest: "{{ playbook_dir }}/../k8s/cluster-autoscaler/cluster-autoscaler-script.sh"
+
+  - name: Jinja template copy for cluster autoscaler manifest file
+    template:
+      src: cluster-autoscaler-template.yaml
+      dest: "{{ playbook_dir }}/../k8s/cluster-autoscaler/cluster-autoscaler.yaml"
+
+  - name: Changing permissions for the cluster autoscaling script
+    shell: "chmod 777 {{ playbook_dir }}/../k8s/cluster-autoscaler/cluster-autoscaler-script.sh"
+
+  - name: Running the cluster autoscaling script
+    script: "{{ playbook_dir }}/../k8s/cluster-autoscaler/cluster-autoscaler-script.sh"
+
+...

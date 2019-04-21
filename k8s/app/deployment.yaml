@@ -69,5 +69,8 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "500m"
-
+      initContainers:
+        - name: topic-checker
+          image: solsson/kafka:0.11.0.0
+          command: ['sh', '-c', '/opt/kafka/bin/kafka-topics.sh --zookeeper kafka-zookeeper.default.svc.cluster.local --topic container-topic --create --partitions 1 --replication-factor 1 --if-not-exists']
 ...
